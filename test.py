@@ -1,17 +1,17 @@
 import zeep
-import xml 
-from zeep import Client , Settings
+import sys
+import collections
+import json
+from zeep import Client , Settings, helpers
 from zeep.plugins import HistoryPlugin
+sys.stdout = open("buildsout","w")
 
-#!!!Complex tipli cevapları alamıyorum dokumantasyonda var 
-#n11 referansındakilerin cogu calısmıyor
-#CALISANLAR wsdl de tanımlı olanlar calısıyor
+#kompleks tiplere cevap alabildim serizlize etmem gerekiyor
+#deque yada ordered list sekinde serialize edebilirim ordered list i becerebildim 
+#kompleks cevabı orderedlist'e cevirebildim ama ordered listini cindede unserialised bolum var
 #result = client.service.GetTopLevelCategories(auth)
 #result = client.service.GetCategoryAttributeValue(auth,categoryId,pagingData) -> neye yaradagını anlayamadım geri dondugu liste boş
 #result = client.service.GetParentCategory(auth,SubCategoryId)
-
-#result = client.service.GetCategoryAttributes(auth,categoryId,pagingData) -> parse ederken hata veriyor buyuk ihtimal zeep ile alakalı
-#result = client.service.GetCategoryAttributesId(auth,categoryId) -> aynı hata 
 
 authfileName = "auth";
 lines = [line.rstrip('\n') for line in open(authfileName)] # file objesi ???
@@ -33,9 +33,35 @@ pagingData = {'currentPage' : 0 , 'pageSize' : 100}
 result = client.service.GetCategoryAttributesId(auth,SubCategoryId)
 
 # raw elements i foreach ile itere edebilir miyim
-print(result.categoryProductAttributeList)
+print(result.categoryProductAttributeList.categoryProductAttribute[0])
 
-print(result)
+"""	 bu sekildede yapmaya calıs
+Mydeque = result.categoryProductAttributeList.categoryProductAttribute[0]
+serializedDeque = zeep.helpers.serialize_object(Mydeque, target_cls= collections.deque)
+print("deque unserialised \n" + Mydeque + "serialized deque \n"  + serializedDeque)
+"""
+
+myDic = result.categoryProductAttributeList.categoryProductAttribute[0]
+print(zeep.helpers.guess_xsd_type(myDic))
+serialized = zeep.helpers.serialize_object(myDic, target_cls= collections.OrderedDict)
+print("serialized -> ")
+print( serialized )
+print("rawElements -> ")
+rawElements = serialized['_raw_elements']
+serializedRawElements = zeep.helpers.serialize_object(rawElements, target_cls= collections.OrderedDict) 
+#bu deque objesini nasıl işlerim  kuyruk çalşıyor gibi 03.11.18 BURADA KALDIM 	 
+popped = serializedRawElements.pop() 
+print(popped)  
+
+serializedRawElements.append(29)
+popped1 = serializedRawElements.pop()
+print(+ str(popped1))
+
+#print(serialized)
+#print(serialized1)
+#print(json.dumps(serialized, indent = 4)) json'a aktaramıyorum cunku cevap tam olarak serialized degil edemiyorum 
+
+#print(result)
 print(">>>" + result.result['status'])
 
 print(history.last_sent)
