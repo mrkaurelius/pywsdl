@@ -1,0 +1,108 @@
+
+Prefixes:
+     ns0: http://www.n11.com/ws/schemas
+     xsd: http://www.w3.org/2001/XMLSchema
+
+Global elements:
+     ns0:GetCategoryAttributeValueRequest(auth: ns0:Authentication, categoryProductAttributeId: xsd:long, pagingData: ns0:RequestPagingData)
+     ns0:GetCategoryAttributeValueResponse(result: ns0:ResultInfo, categoryProductAttributeValueList: ns0:CategoryProductAttributeValueList, pagingData: ns0:PagingData)
+     ns0:GetCategoryAttributesIdRequest(auth: ns0:Authentication, categoryId: xsd:long)
+     ns0:GetCategoryAttributesIdResponse(result: ns0:ResultInfo, categoryProductAttributeList: ns0:CategoryProductAttributeList)
+     ns0:GetCategoryAttributesRequest(auth: ns0:Authentication, categoryId: xsd:long, pagingData: ns0:RequestPagingData)
+     ns0:GetCategoryAttributesResponse(result: ns0:ResultInfo, category: ns0:CategoryData)
+     ns0:GetParentCategoryRequest(auth: ns0:Authentication, categoryId: xsd:long)
+     ns0:GetParentCategoryResponse(result: ns0:ResultInfo, category: ns0:ParentCategoryData)
+     ns0:GetSubCategoriesRequest(auth: ns0:Authentication, categoryId: xsd:long)
+     ns0:GetSubCategoriesResponse(result: ns0:ResultInfo, category: ns0:SubCategoryData[])
+     ns0:GetTpLevelCategoriesRequeost(auth: ns0:Authentication)
+     ns0:GetTopLevelCategoriesResponse(result: ns0:ResultInfo, categoryList: ns0:TopCategoryList)
+     
+
+Global types:
+     xsd:anyType
+     ns0:Authentication(appKey: xsd:string, appSecret: xsd:string)
+     ns0:BaseRequest(authentication: ns0:Authentication)
+     ns0:BaseResponse(status: xsd:string, errorCode: xsd:string, errorMessage: xsd:string, errorCategory: xsd:string)
+     ns0:CategoryAttributeData(id: xsd:long, name: xsd:string, mandatory: xsd:boolean, multipleSelect: xsd:boolean, valueList: ns0:CategoryAttributeValueList, priority: xsd:double)
+     ns0:CategoryAttributeList(attribute: ns0:CategoryAttributeData[])
+     ns0:CategoryAttributeValueData(id: xsd:long, name: xsd:string, dependedName: xsd:string)
+     ns0:CategoryAttributeValueList(value: ns0:CategoryAttributeValueData[])
+     ns0:CategoryData(id: xsd:long, name: xsd:string, parentCategory: ns0:CategoryData, subCategoryList: ns0:SubCategoryList, attributeList: ns0:CategoryAttributeList, metadata: ns0:PagingData)
+     ns0:CategoryProductAttributeData(id: xsd:long, name: xsd:string, mandatory: xsd:boolean, multipleSelect: xsd:boolean)
+     ns0:CategoryProductAttributeList(categoryProductAttribute: ns0:CategoryProductAttributeData[])
+     ns0:CategoryProductAttributeValueData(id: xsd:long, name: xsd:string, dependedName: xsd:string)
+     ns0:CategoryProductAttributeValueList(categoryProductAttributeValue: ns0:CategoryProductAttributeValueData[])
+     ns0:PagingData(currentPage: xsd:int, pageSize: xsd:int, totalCount: xsd:long, pageCount: xsd:int)
+     ns0:ParentCategory(id: xsd:long, name: xsd:string)
+     ns0:ParentCategoryData(id: xsd:long, name: xsd:string, parentCategory: ns0:ParentCategory)
+     ns0:RequestPagingData(currentPage: xsd:int, pageSize: xsd:int)
+     ns0:ResultInfo(status: xsd:string, errorCode: xsd:string, errorMessage: xsd:string, errorCategory: xsd:string)
+     ns0:SubCategory(id: xsd:long, name: xsd:string)
+     ns0:SubCategoryData(id: xsd:long, name: xsd:string, subCategoryList: ns0:SubCategoryList)
+     ns0:SubCategoryList(subCategory: ns0:SubCategory[])
+     ns0:TopCategoryList(category: ns0:SubCategory[])
+     xsd:ENTITIES
+     xsd:ENTITY
+     xsd:ID
+     xsd:IDREF
+     xsd:IDREFS
+     xsd:NCName
+     xsd:NMTOKEN
+     xsd:NMTOKENS
+     xsd:NOTATION
+     xsd:Name
+     xsd:QName
+     xsd:anySimpleType
+     xsd:anyURI
+     xsd:base64Binary
+     xsd:boolean
+     xsd:byte
+     xsd:date
+     xsd:dateTime
+     xsd:decimal
+     xsd:double
+     xsd:duration
+     xsd:float
+     xsd:gDay
+     xsd:gMonth
+     xsd:gMonthDay
+     xsd:gYear
+     xsd:gYearMonth
+     xsd:hexBinary
+     xsd:int
+     xsd:integer
+     xsd:language
+     xsd:long
+     xsd:negativeInteger
+     xsd:nonNegativeInteger
+     xsd:nonPositiveInteger
+     xsd:normalizedString
+     xsd:positiveInteger
+     xsd:short
+     xsd:string
+     xsd:time
+     xsd:token
+     xsd:unsignedByte
+     xsd:unsignedInt
+     xsd:unsignedLong
+     xsd:unsignedShort
+
+Bindings:
+     Soap11Binding: {http://www.n11.com/ws/schemas}CategoryServicePortSoap11
+
+Service: CategoryServicePortService
+     Port: CategoryServicePortSoap11 (Soap11Binding: {http://www.n11.com/ws/schemas}CategoryServicePortSoap11)
+         Operations:
+         
+            GetCategoryAttributeValue(auth: ns0:Authentication, categoryProductAttributeId: xsd:long, pagingData: ns0:RequestPagingData) -> result: ns0:ResultInfo, categoryProductAttributeValueList: ns0:CategoryProductAttributeValueList, pagingData: ns0:PagingData
+            
+            GetCategoryAttributes(auth: ns0:Authentication, categoryId: xsd:long, pagingData: ns0:RequestPagingData) -> result: ns0:ResultInfo, category: ns0:CategoryData
+            
+            GetCategoryAttributesId(auth: ns0:Authentication, categoryId: xsd:long) -> result: ns0:ResultInfo, categoryProductAttributeList: ns0:CategoryProductAttributeList
+            
+            GetParentCategory(auth: ns0:Authentication, categoryId: xsd:long) -> result: ns0:ResultInfo, category: ns0:ParentCategoryData
+            
+            GetSubCategories(auth: ns0:Authentication, categoryId: xsd:long) -> result: ns0:ResultInfo, category: ns0:SubCategoryData[]
+           
+            GetTopLevelCategories(auth: ns0:Authentication) -> result: ns0:ResultInfo, categoryList: ns0:TopCategoryList
+

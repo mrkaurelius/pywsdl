@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.n11.com/ws/schemas" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.n11.com/ws/schemas" targetNamespace="http://www.n11.com/ws/schemas">
+    <wsdl:types>
+        <xs:schema xmlns:n11="http://www.n11.com/ws/schemas" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.n11.com/ws/schemas">
+            <xs:element name="GetTopLevelCategoriesRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="auth" type="n11:Authentication"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetTopLevelCategoriesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="n11:ResultInfo"/>
+                        <xs:element name="categoryList" type="n11:TopCategoryList"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCategoryAttributesIdRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="auth" type="n11:Authentication"/>
+                        <xs:element name="categoryId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCategoryAttributesIdResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="n11:ResultInfo"/>
+                        <xs:element name="categoryProductAttributeList" type="n11:CategoryProductAttributeList"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCategoryAttributeValueRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="auth" type="n11:Authentication"/>
+                        <xs:element name="categoryProductAttributeId" type="xs:long"/>
+                        <xs:element name="pagingData" type="n11:RequestPagingData"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCategoryAttributeValueResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="n11:ResultInfo"/>
+                        <xs:element name="categoryProductAttributeValueList" type="n11:CategoryProductAttributeValueList"/>
+                        <xs:element name="pagingData" type="n11:PagingData"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetSubCategoriesRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="auth" type="n11:Authentication"/>
+                        <xs:element name="categoryId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetSubCategoriesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="n11:ResultInfo"/>
+                        <xs:element maxOccurs="unbounded" name="category" type="n11:SubCategoryData"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCategoryAttributesRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="auth" type="n11:Authentication"/>
+                        <xs:element name="categoryId" type="xs:long"/>
+                        <xs:element name="pagingData" type="n11:RequestPagingData"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCategoryAttributesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="n11:ResultInfo"/>
+                        <xs:element name="category" type="n11:CategoryData"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetParentCategoryRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="auth" type="n11:Authentication"/>
+                        <xs:element name="categoryId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetParentCategoryResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="n11:ResultInfo"/>
+                        <xs:element name="category" type="n11:ParentCategoryData"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="CategoryData">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="parentCategory" type="n11:CategoryData"/>
+                    <xs:element name="subCategoryList" type="n11:SubCategoryList"/>
+                    <xs:element name="attributeList" type="n11:CategoryAttributeList"/>
+                    <xs:element name="metadata" type="n11:PagingData"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="SubCategoryData">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="subCategoryList" type="n11:SubCategoryList"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="SubCategory">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="name" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ParentCategoryData">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="parentCategory" type="n11:ParentCategory"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ParentCategory">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="name" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CategoryAttributeList">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="attribute" type="n11:CategoryAttributeData"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="TopCategoryList">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="category" type="n11:SubCategory"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="SubCategoryList">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="subCategory" type="n11:SubCategory"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CategoryProductAttributeList">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="categoryProductAttribute" type="n11:CategoryProductAttributeData"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CategoryProductAttributeData">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="mandatory" type="xs:boolean"/>
+                    <xs:element name="multipleSelect" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CategoryProductAttributeValueData">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="dependedName" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CategoryProductAttributeValueList">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="categoryProductAttributeValue" type="n11:CategoryProductAttributeValueData"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CategoryAttributeData">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="mandatory" type="xs:boolean"/>
+                    <xs:element name="multipleSelect" type="xs:boolean"/>
+                    <xs:element name="valueList" type="n11:CategoryAttributeValueList"/>
+                    <xs:element name="priority" type="xs:double"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CategoryAttributeValueList">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="value" type="n11:CategoryAttributeValueData"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CategoryAttributeValueData">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="dependedName" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="PagingData">
+                <xs:sequence>
+                    <xs:element name="currentPage" nillable="true" type="xs:int"/>
+                    <xs:element name="pageSize" nillable="true" type="xs:int"/>
+                    <xs:element name="totalCount" nillable="true" type="xs:long"/>
+                    <xs:element name="pageCount" nillable="true" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="RequestPagingData">
+                <xs:sequence>
+                    <xs:element name="currentPage" nillable="true" type="xs:int"/>
+                    <xs:element name="pageSize" nillable="true" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="BaseRequest">
+                <xs:sequence>
+                    <xs:element name="authentication" type="n11:Authentication"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Authentication">
+                <xs:sequence>
+                    <xs:element name="appKey" type="xs:string"/>
+                    <xs:element name="appSecret" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="BaseResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="status" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="errorCode" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="errorMessage" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="errorCategory" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ResultInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="status" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="errorCode" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="errorMessage" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="errorCategory" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="GetTopLevelCategoriesRequest">
+        <wsdl:part element="tns:GetTopLevelCategoriesRequest" name="GetTopLevelCategoriesRequest"/>
+    </wsdl:message>
+    <wsdl:message name="GetTopLevelCategoriesResponse">
+        <wsdl:part element="tns:GetTopLevelCategoriesResponse" name="GetTopLevelCategoriesResponse"/>
+    </wsdl:message>
+    <wsdl:message name="GetCategoryAttributesIdRequest">
+        <wsdl:part element="tns:GetCategoryAttributesIdRequest" name="GetCategoryAttributesIdRequest"/>
+    </wsdl:message>
+    <wsdl:message name="GetCategoryAttributesIdResponse">
+        <wsdl:part element="tns:GetCategoryAttributesIdResponse" name="GetCategoryAttributesIdResponse"/>
+    </wsdl:message>
+    <wsdl:message name="GetCategoryAttributeValueRequest">
+        <wsdl:part element="tns:GetCategoryAttributeValueRequest" name="GetCategoryAttributeValueRequest"/>
+    </wsdl:message>
+    <wsdl:message name="GetCategoryAttributeValueResponse">
+        <wsdl:part element="tns:GetCategoryAttributeValueResponse" name="GetCategoryAttributeValueResponse"/>
+    </wsdl:message>
+    <wsdl:message name="GetSubCategoriesRequest">
+        <wsdl:part element="tns:GetSubCategoriesRequest" name="GetSubCategoriesRequest"/>
+    </wsdl:message>
+    <wsdl:message name="GetSubCategoriesResponse">
+        <wsdl:part element="tns:GetSubCategoriesResponse" name="GetSubCategoriesResponse"/>
+    </wsdl:message>
+    <wsdl:message name="GetCategoryAttributesRequest">
+        <wsdl:part element="tns:GetCategoryAttributesRequest" name="GetCategoryAttributesRequest"/>
+    </wsdl:message>
+    <wsdl:message name="GetCategoryAttributesResponse">
+        <wsdl:part element="tns:GetCategoryAttributesResponse" name="GetCategoryAttributesResponse"/>
+    </wsdl:message>
+    <wsdl:message name="GetParentCategoryRequest">
+        <wsdl:part element="tns:GetParentCategoryRequest" name="GetParentCategoryRequest"/>
+    </wsdl:message>
+    <wsdl:message name="GetParentCategoryResponse">
+        <wsdl:part element="tns:GetParentCategoryResponse" name="GetParentCategoryResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="CategoryServicePort">
+        <wsdl:operation name="GetTopLevelCategories">
+            <wsdl:input message="tns:GetTopLevelCategoriesRequest" name="GetTopLevelCategoriesRequest"/>
+            <wsdl:output message="tns:GetTopLevelCategoriesResponse" name="GetTopLevelCategoriesResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetCategoryAttributesId">
+            <wsdl:input message="tns:GetCategoryAttributesIdRequest" name="GetCategoryAttributesIdRequest"/>
+            <wsdl:output message="tns:GetCategoryAttributesIdResponse" name="GetCategoryAttributesIdResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetCategoryAttributeValue">
+            <wsdl:input message="tns:GetCategoryAttributeValueRequest" name="GetCategoryAttributeValueRequest"/>
+            <wsdl:output message="tns:GetCategoryAttributeValueResponse" name="GetCategoryAttributeValueResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetSubCategories">
+            <wsdl:input message="tns:GetSubCategoriesRequest" name="GetSubCategoriesRequest"/>
+            <wsdl:output message="tns:GetSubCategoriesResponse" name="GetSubCategoriesResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetCategoryAttributes">
+            <wsdl:input message="tns:GetCategoryAttributesRequest" name="GetCategoryAttributesRequest"/>
+            <wsdl:output message="tns:GetCategoryAttributesResponse" name="GetCategoryAttributesResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetParentCategory">
+            <wsdl:input message="tns:GetParentCategoryRequest" name="GetParentCategoryRequest"/>
+            <wsdl:output message="tns:GetParentCategoryResponse" name="GetParentCategoryResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CategoryServicePortSoap11" type="tns:CategoryServicePort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetTopLevelCategories">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetTopLevelCategoriesRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetTopLevelCategoriesResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetCategoryAttributesId">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetCategoryAttributesIdRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetCategoryAttributesIdResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetCategoryAttributeValue">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetCategoryAttributeValueRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetCategoryAttributeValueResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetSubCategories">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetSubCategoriesRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetSubCategoriesResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetCategoryAttributes">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetCategoryAttributesRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetCategoryAttributesResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetParentCategory">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetParentCategoryRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetParentCategoryResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="CategoryServicePortService">
+        <wsdl:port binding="tns:CategoryServicePortSoap11" name="CategoryServicePortSoap11">
+            <soap:address location="https://api.n11.com/ws/categoryService/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

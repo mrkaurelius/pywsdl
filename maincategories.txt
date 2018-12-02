@@ -1,0 +1,376 @@
+{
+    'result': {
+        'status': 'success',
+        'errorCode': None,
+        'errorMessage': None,
+        'errorCategory': None
+    },
+    'categoryList': {
+        'category': [
+            {
+                'id': 1002841,
+                'name': 'Aksesuar & Tuning'
+            },
+            {
+                'id': 1001770,
+                'name': 'Ayakkabı & Çanta'
+            },
+            {
+                'id': 1000035,
+                'name': 'Bebek Bezi & Islak Mendil'
+            },
+            {
+                'id': 1003221,
+                'name': 'Fitness & Kondisyon'
+            },
+            {
+                'id': 1002113,
+                'name': 'Kitap'
+            },
+            {
+                'id': 1001155,
+                'name': 'Mobilya'
+            },
+            {
+                'id': 1002579,
+                'name': 'Parfüm & Deodorant'
+            },
+            {
+                'id': 1000472,
+                'name': 'Telefon & Aksesuarları'
+            },
+            {
+                'id': 1002680,
+                'name': 'Yatırımlık Altın & Gümüş'
+            },
+            {
+                'id': 1000039,
+                'name': 'Bebek Giyim'
+            },
+            {
+                'id': 1000145,
+                'name': 'Hamile Giyim'
+            },
+            {
+                'id': 1000008,
+                'name': 'Bebek Arabaları'
+            },
+            {
+                'id': 1000210,
+                'name': 'Bilgisayar'
+            },
+            {
+                'id': 1000604,
+                'name': 'Dekorasyon & Aydınlatma'
+            },
+            {
+                'id': 1002084,
+                'name': 'Film'
+            },
+            {
+                'id': 1001935,
+                'name': 'Kadın Giyim & Aksesuar'
+            },
+            {
+                'id': 1002809,
+                'name': 'Saat'
+            },
+            {
+                'id': 1002583,
+                'name': 'Saç Bakım & Şekillendirme'
+            },
+            {
+                'id': 1003335,
+                'name': 'Spor Giyim & Ayakkabı'
+            },
+            {
+                'id': 1003061,
+                'name': 'Yedek Parça'
+            },
+            {
+                'id': 1003526,
+                'name': '2.El Antika & Koleksiyon'
+            },
+            {
+                'id': 1001873,
+                'name': 'Erkek Giyim & Aksesuar'
+            },
+            {
+                'id': 1000702,
+                'name': 'Ev Tekstili'
+            },
+            {
+                'id': 1002234,
+                'name': 'Müzik'
+            },
+            {
+                'id': 1000170,
+                'name': 'Oto Koltuğu & Ana Kucağı'
+            },
+            {
+                'id': 1003289,
+                'name': 'Outdoor & Kamp'
+            },
+            {
+                'id': 1003041,
+                'name': 'Ses Sistemleri & Navigasyon'
+            },
+            {
+                'id': 1000514,
+                'name': 'Televizyon & Ses Sistemleri'
+            },
+            {
+                'id': 1002639,
+                'name': 'Yüz & Vücut Bakımı'
+            },
+            {
+                'id': 1000121,
+                'name': 'Beslenme & Mama Sandalyesi'
+            },
+            {
+                'id': 1003142,
+                'name': 'Bireysel & Takım Sporları'
+            },
+            {
+                'id': 1002032,
+                'name': 'Çocuk Giyim & Aksesuar'
+            },
+            {
+                'id': 1000373,
+                'name': 'Elektrikli Ev Aletleri'
+            },
+            {
+                'id': 1002975,
+                'name': 'Lastik & Jant'
+            },
+            {
+                'id': 1002553,
+                'name': 'Makyaj'
+            },
+            {
+                'id': 1001262,
+                'name': 'Mutfak Gereçleri'
+            },
+            {
+                'id': 1002767,
+                'name': 'Pırlanta Takılar'
+            },
+            {
+                'id': 1002306,
+                'name': 'Video Oyun & Konsol'
+            },
+            {
+                'id': 1002690,
+                'name': 'Altın Takılar'
+            },
+            {
+                'id': 1003129,
+                'name': 'Avcılık & Balıkçılık'
+            },
+            {
+                'id': 1000578,
+                'name': 'Banyo & Ev Gereçleri'
+            },
+            {
+                'id': 1000178,
+                'name': 'Beyaz Eşya'
+            },
+            {
+                'id': 1000126,
+                'name': 'Biberon ve Aksesuarları'
+            },
+            {
+                'id': 1001929,
+                'name': 'Güneş Gözlüğü'
+            },
+            {
+                'id': 1002605,
+                'name': 'Sağlık & Medikal Ürünler'
+            },
+            {
+                'id': 1000136,
+                'name': 'Emzirme Ürünleri'
+            },
+            {
+                'id': 1000427,
+                'name': 'Fotoğraf & Kamera'
+            },
+            {
+                'id': 1002742,
+                'name': 'Gümüş Takılar'
+            },
+            {
+                'id': 1002543,
+                'name': 'Kadın Bakım Ürünleri'
+            },
+            {
+                'id': 1003263,
+                'name': 'Kış Sporları'
+            },
+            {
+                'id': 1001525,
+                'name': 'Yapı Market & Bahçe'
+            },
+            {
+                'id': 1003192,
+                'name': 'Bisiklet & Scooter'
+            },
+            {
+                'id': 1002816,
+                'name': 'Çelik Takılar'
+            },
+            {
+                'id': 1002507,
+                'name': 'Erkek Bakım Ürünleri'
+            },
+            {
+                'id': 1000783,
+                'name': 'Evcil Hayvan Ürünleri'
+            },
+            {
+                'id': 1000175,
+                'name': 'Yürüteç & Yürüme Yardımcıları'
+            },
+            {
+                'id': 1002472,
+                'name': 'Ağız, Diş & Banyo Ürünleri'
+            },
+            {
+                'id': 1000087,
+                'name': 'Bebek Odası & Park Yatak'
+            },
+            {
+                'id': 1001006,
+                'name': 'Kırtasiye & Ofis'
+            },
+            {
+                'id': 1000016,
+                'name': 'Bebek Bakım & Sağlık'
+            },
+            {
+                'id': 1002493,
+                'name': 'El, Ayak, Tırnak Bakımı'
+            },
+            {
+                'id': 1000080,
+                'name': 'Bebek Güvenlik'
+            },
+            {
+                'id': 1002515,
+                'name': 'Güneş & Bronzluk Ürünleri'
+            },
+            {
+                'id': 1000115,
+                'name': 'Bebek Oyuncakları'
+            },
+            {
+                'id': 1002520,
+                'name': 'Güzellik Salonu & Kuaför Ürünleri'
+            },
+            {
+                'id': 1000001,
+                'name': 'Banyo & Tuvalet'
+            },
+            {
+                'id': 1002717,
+                'name': 'Bijuteri Takılar'
+            },
+            {
+                'id': 1002411,
+                'name': 'Çocuk Oyuncakları & Parti'
+            },
+            {
+                'id': 1002993,
+                'name': 'Motosiklet'
+            },
+            {
+                'id': 1001374,
+                'name': 'Süpermarket'
+            },
+            {
+                'id': 1003363,
+                'name': 'Tekne & Yat Malzemeleri'
+            },
+            {
+                'id': 1002349,
+                'name': 'Yetişkin Hobi & Oyun'
+            },
+            {
+                'id': 1001841,
+                'name': 'Düğün, Davet, Organizasyon'
+            },
+            {
+                'id': 1004031,
+                'name': 'Kültür Turları'
+            },
+            {
+                'id': 1004001,
+                'name': 'Yurtdışı Turları'
+            },
+            {
+                'id': 1014100,
+                'name': 'Tatil Fırsatları'
+            },
+            {
+                'id': 1002663,
+                'name': 'Aksesuar'
+            },
+            {
+                'id': 1094100,
+                'name': 'Cinsel Ürünler'
+            },
+            {
+                'id': 1088100,
+                'name': 'Dijital Kodlar & Ürünler'
+            },
+            {
+                'id': 1091100,
+                'name': 'Emlak'
+            },
+            {
+                'id': 1001750,
+                'name': 'Fantezi Giyim'
+            },
+            {
+                'id': 1002465,
+                'name': 'İlginç & Akıllı Ürünler'
+            },
+            {
+                'id': 1062100,
+                'name': 'Kampanya Giyim & Ayakkabı'
+            },
+            {
+                'id': 1018101,
+                'name': 'Su Sporları'
+            },
+            {
+                'id': 1003448,
+                'name': 'Toptan Satış'
+            },
+            {
+                'id': 1008116,
+                'name': 'Toptan Satış'
+            },
+            {
+                'id': 1008118,
+                'name': 'Toptan Satış'
+            },
+            {
+                'id': 1003445,
+                'name': 'Toptan Satış'
+            },
+            {
+                'id': 1003432,
+                'name': 'Toptan Satış'
+            },
+            {
+                'id': 1090100,
+                'name': 'Uçak Bileti'
+            },
+            {
+                'id': 1040105,
+                'name': 'Yaşam & Etkinlik'
+            }
+        ]
+    }
+}
