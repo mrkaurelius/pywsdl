@@ -1,7 +1,5 @@
 #her seferinde wdsli okumak yerine cache etmek lazım -> sqlite docu sitesinde var
 #zeepin olusturdugu metodları nasıl gorebilirim
-#neden serverin cevabı obje sekilinde degilde string seklinde dondu 
 #apiden oturumu yoksa her turlu benim mi parse etmem gerekicek -> lxml
-#python3 -mzeep http://www.soapclient.com/xml/soapresponder.wsdl
-
+#xml agacını serialize etmek icin recursive func kullanabilirim
 >>>METODLAR

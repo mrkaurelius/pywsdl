@@ -2,9 +2,10 @@ import zeep
 import sys
 import collections
 import json
+from lxml import etree
 from zeep import Client , Settings, helpers
 from zeep.plugins import HistoryPlugin
-sys.stdout = open("buildsout","w")
+#sys.stdout = open("buildsout","w")
 
 #kompleks tiplere cevap alabildim serizlize etmem gerekiyor
 #deque yada ordered list sekinde serialize edebilirim ordered list i becerebildim 
@@ -20,11 +21,9 @@ appSecret = lines[1]
 
 auth = { 'appKey' : appKey , 'appSecret' : appSecret}
 settings = Settings(strict=False, xml_huge_tree=True)
-wsdl = 'https://api.n11.com/ws/CategoryService.wsdl'
+wsdl = 'https://api.n11.comm/ws/CategoryService.wsdl'
 history = HistoryPlugin()
 client = zeep.Client(wsdl=wsdl,plugins=[history],settings = settings)
-
-
 
 SubCategoryId = 1002958
 categoryId = 1003221
@@ -50,18 +49,14 @@ print("rawElements -> ")
 rawElements = serialized['_raw_elements']
 serializedRawElements = zeep.helpers.serialize_object(rawElements, target_cls= collections.OrderedDict) 
 #bu deque objesini nasıl işlerim  kuyruk çalşıyor gibi 03.11.18 BURADA KALDIM 	 
-popped = serializedRawElements.pop() 
-print(popped)  
 
-serializedRawElements.append(29)
-popped1 = serializedRawElements.pop()
-print(+ str(popped1))
+for listelement in serializedRawElements:
+	print("liste elementlerin tipleri -> ")
+	print(type(listelement))
+	print(etree.tostring(listelement,pretty_print = True))
+	pass
+	#neden basic tipleri itere edemedi ama tıpı ogrendik <class 'lxml.etree._Element'>
 
-#print(serialized)
-#print(serialized1)
-#print(json.dumps(serialized, indent = 4)) json'a aktaramıyorum cunku cevap tam olarak serialized degil edemiyorum 
-
-#print(result)
 print(">>>" + result.result['status'])
 
 print(history.last_sent)
