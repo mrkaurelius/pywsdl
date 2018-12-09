@@ -1,0 +1,34 @@
+[OrderedDict([('id', 1003221), ('name', 'Fitness & Kondisyon'), ('subCategoryList', OrderedDict([('subCategory', [OrderedDict([('id', 1003259), ('name', 'Masaj Ürünleri')]), OrderedDict([('id', 1003222), ('name', 'Besin Takviyeleri')]), OrderedDict([('id', 1003234), ('name', 'Fitness & Kardiyo')])])]))])]
+<class 'list'>
+<class 'collections.OrderedDict'>
+1003221
+{
+    'result': {
+        'status': 'success',
+        'errorCode': None,
+        'errorMessage': None,
+        'errorCategory': None
+    },
+    'category': [
+        {
+            'id': 1003221,
+            'name': 'Fitness & Kondisyon',
+            'subCategoryList': {
+                'subCategory': [
+                    {
+                        'id': 1003259,
+                        'name': 'Masaj Ürünleri'
+                    },
+                    {
+                        'id': 1003222,
+                        'name': 'Besin Takviyeleri'
+                    },
+                    {
+                        'id': 1003234,
+                        'name': 'Fitness & Kardiyo'
+                    }
+                ]
+            }
+        }
+    ]
+}

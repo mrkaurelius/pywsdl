@@ -5,43 +5,45 @@ import json
 from lxml import etree
 from zeep import Client , Settings, helpers
 from zeep.plugins import HistoryPlugin
-#sys.stdout = open("buildsout","w")
+sys.stdout = open("buildsout","w")
 
-#kompleks tiplere cevap alabildim serizlize etmem gerekiyor
-#deque yada ordered list sekinde serialize edebilirim ordered list i becerebildim 
-#kompleks cevabı orderedlist'e cevirebildim ama ordered listini cindede unserialised bolum var
-#result = client.service.GetTopLevelCategories(auth)
-#result = client.service.GetCategoryAttributeValue(auth,categoryId,pagingData) -> neye yaradagını anlayamadım geri dondugu liste boş
-#result = client.service.GetParentCategory(auth,SubCategoryId)
+def GetTopLevelCatIterate(): #GetTopLevelCategories
+	# fonksyon mantıgını anlamak lazım wsdl nesnesine nasıl bir erişim oluyor
+	# **kwargs ve mapping detayı var onları simdılık atlayacağım ve çağrıları burdan yapmaya calısacağım
+	result_topCategories = client.service.GetTopLevelCategories(auth)
+	myResultOrderedDict = zeep.helpers.serialize_object(result_topCategories, target_cls= collections.OrderedDict)
+	orderedCats = myResultOrderedDict['categoryList']
+	bareCatList = orderedCats['category']
+	for listElement in bareCatList:
+		print(str(listElement['id']) , str(listElement['name'])) # evet metodun ıskeleti ortaya cıktı
+		pass
+	#returne gerek varmı gerekli iterasyonu burda yaparız gibi
 
+def GetSubCategoriesIterate():
+	# 1003221 Fitness & Kondisyon ana kategori 
+	fcat = 1003221
+	result_subCategories = client.service.GetSubCategories(auth,fcat)
+	myResultOrderedDict = zeep.helpers.serialize_object(result_subCategories, target_cls= collections.OrderedDict)
+	parentCat = myResultOrderedDict['category'] #buradan istersem ust kategoriyide itere edebilirim 
+	print(parentCat) #!!! üst kategoriler birden falza olabirmi ?? 
+	#BURADA KALDIM 
+
+###!!! NESNESLER BU YONTEMLE ERISMENIN ZARARLARI NE OLABLIR
 authfileName = "auth";
 lines = [line.rstrip('\n') for line in open(authfileName)] # file objesi ???
 appKey = lines[0]
 appSecret = lines[1]
-
 auth = { 'appKey' : appKey , 'appSecret' : appSecret}
 settings = Settings(strict=False, xml_huge_tree=True)
-wsdl = 'https://api.n11.com/ws/CategoryService.wsdl' #typo was here
+wsdl = 'https://api.n11.com/ws/CategoryService.wsdl' 
 history = HistoryPlugin()
 client = zeep.Client(wsdl=wsdl,plugins=[history],settings = settings)
 
-SubCategoryId = 1002958
-categoryId = 1003221
 pagingData = {'currentPage' : 0 , 'pageSize' : 100}
 
-#zeep objesini ordereddict e donusturup ilk olarak recursive olmadan sonra recursive bir bicimde kendim olusturabilirim
-result_topCategories = client.service.GetTopLevelCategories(auth)
-print(type(result_topCategories))
-print(result_topCategories)
+#GetTopLevelCatIterate() #GetTopLevelCategories
+GetSubCategoriesIterate()
 
-myOrederedDict = zeep.helpers.serialize_object(result_topCategories, target_cls= collections.OrderedDict)
-#print(zeep.helpers.guess_xsd_type(myOrederedDict)) xsd:string
-#ordereddict'pickle ile ayırmaya calıs ordan lxmltest.py ye geç (ordered pick zor olacak gibi)
-#ordered listten sonra buyuk ihtimal deque de lazım olacak
-print("myOrederedDict -> ")
-print(myOrederedDict['categoryList'])
-
-orderedCats = myOrederedDict['categoryList']
 
 """ requesti lxml formatına cevirme
 client1 = Client('https://api.n11.com/ws/CategoryService.wsdl')

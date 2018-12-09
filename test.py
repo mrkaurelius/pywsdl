@@ -1,4 +1,7 @@
 import collections
+import sys
+print(sys.version)
+
 
 d = collections.OrderedDict()
 

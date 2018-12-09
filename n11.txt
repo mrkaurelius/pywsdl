@@ -1,7 +1,7 @@
 
 Prefixes:
-     ns0: http://www.n11.com/ws/schemas
      xsd: http://www.w3.org/2001/XMLSchema
+     ns0: http://www.n11.com/ws/schemas
 
 Global elements:
      ns0:GetCategoryAttributeValueRequest(auth: ns0:Authentication, categoryProductAttributeId: xsd:long, pagingData: ns0:RequestPagingData)
@@ -14,7 +14,7 @@ Global elements:
      ns0:GetParentCategoryResponse(result: ns0:ResultInfo, category: ns0:ParentCategoryData)
      ns0:GetSubCategoriesRequest(auth: ns0:Authentication, categoryId: xsd:long)
      ns0:GetSubCategoriesResponse(result: ns0:ResultInfo, category: ns0:SubCategoryData[])
-     ns0:GetTpLevelCategoriesRequeost(auth: ns0:Authentication)
+     ns0:GetTopLevelCategoriesRequest(auth: ns0:Authentication)
      ns0:GetTopLevelCategoriesResponse(result: ns0:ResultInfo, categoryList: ns0:TopCategoryList)
      
 
@@ -93,16 +93,12 @@ Bindings:
 Service: CategoryServicePortService
      Port: CategoryServicePortSoap11 (Soap11Binding: {http://www.n11.com/ws/schemas}CategoryServicePortSoap11)
          Operations:
-         
             GetCategoryAttributeValue(auth: ns0:Authentication, categoryProductAttributeId: xsd:long, pagingData: ns0:RequestPagingData) -> result: ns0:ResultInfo, categoryProductAttributeValueList: ns0:CategoryProductAttributeValueList, pagingData: ns0:PagingData
-            
             GetCategoryAttributes(auth: ns0:Authentication, categoryId: xsd:long, pagingData: ns0:RequestPagingData) -> result: ns0:ResultInfo, category: ns0:CategoryData
-            
             GetCategoryAttributesId(auth: ns0:Authentication, categoryId: xsd:long) -> result: ns0:ResultInfo, categoryProductAttributeList: ns0:CategoryProductAttributeList
-            
             GetParentCategory(auth: ns0:Authentication, categoryId: xsd:long) -> result: ns0:ResultInfo, category: ns0:ParentCategoryData
             
             GetSubCategories(auth: ns0:Authentication, categoryId: xsd:long) -> result: ns0:ResultInfo, category: ns0:SubCategoryData[]
-           
+            
             GetTopLevelCategories(auth: ns0:Authentication) -> result: ns0:ResultInfo, categoryList: ns0:TopCategoryList
 
