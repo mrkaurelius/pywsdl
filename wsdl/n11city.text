@@ -1,0 +1,89 @@
+
+Prefixes:
+     ns0: http://www.n11.com/ws/schemas
+     xsd: http://www.w3.org/2001/XMLSchema
+
+Global elements:
+     ns0:GetCitiesRequest()
+     ns0:GetCitiesResponse(result: ns0:ResultInfo, cities: ns0:CityList)
+     ns0:GetCityRequest(cityCode: xsd:integer)
+     ns0:GetCityResponse(result: ns0:ResultInfo, city: ns0:CityData)
+     ns0:GetDistrictRequest(cityCode: xsd:integer)
+     ns0:GetDistrictResponse(result: ns0:ResultInfo, districts: ns0:DistrictList)
+     ns0:GetNeighborhoodsRequest(districtId: xsd:long)
+     ns0:GetNeighborhoodsResponse(result: ns0:ResultInfo, neighborhoods: ns0:NeighborhoodListData)
+     
+
+Global types:
+     xsd:anyType
+     ns0:BaseResponse(status: xsd:string, errorCode: xsd:string, errorMessage: xsd:string, errorCategory: xsd:string)
+     ns0:CityData(cityCode: xsd:string, cityId: xsd:long, cityName: xsd:string)
+     ns0:CityList(city: ns0:CityData[])
+     ns0:CreateCityData(cityId: xsd:long)
+     ns0:CreateDistrictData(id: xsd:long)
+     ns0:DistrictData(name: xsd:string, id: xsd:long)
+     ns0:DistrictList(district: ns0:DistrictData[])
+     ns0:NeighborhoodData(name: xsd:string, id: xsd:long)
+     ns0:NeighborhoodListData(neighborhood: ns0:NeighborhoodData[])
+     ns0:ResultInfo(status: xsd:string, errorCode: xsd:string, errorMessage: xsd:string, errorCategory: xsd:string)
+     xsd:ENTITIES
+     xsd:ENTITY
+     xsd:ID
+     xsd:IDREF
+     xsd:IDREFS
+     xsd:NCName
+     xsd:NMTOKEN
+     xsd:NMTOKENS
+     xsd:NOTATION
+     xsd:Name
+     xsd:QName
+     xsd:anySimpleType
+     xsd:anyURI
+     xsd:base64Binary
+     xsd:boolean
+     xsd:byte
+     xsd:date
+     xsd:dateTime
+     xsd:decimal
+     xsd:double
+     xsd:duration
+     xsd:float
+     xsd:gDay
+     xsd:gMonth
+     xsd:gMonthDay
+     xsd:gYear
+     xsd:gYearMonth
+     xsd:hexBinary
+     xsd:int
+     xsd:integer
+     xsd:language
+     xsd:long
+     xsd:negativeInteger
+     xsd:nonNegativeInteger
+     xsd:nonPositiveInteger
+     xsd:normalizedString
+     xsd:positiveInteger
+     xsd:short
+     xsd:string
+     xsd:time
+     xsd:token
+     xsd:unsignedByte
+     xsd:unsignedInt
+     xsd:unsignedLong
+     xsd:unsignedShort
+
+Bindings:
+     Soap11Binding: {http://www.n11.com/ws/schemas}CityServicePortSoap11
+
+Service: CityServicePortService
+     Port: CityServicePortSoap11 (Soap11Binding: {http://www.n11.com/ws/schemas}CityServicePortSoap11)
+         Operations:
+            
+            GetCities() -> result: ns0:ResultInfo, cities: ns0:CityList
+            
+            GetCity(cityCode: xsd:integer) -> result: ns0:ResultInfo, city: ns0:CityData
+            
+            GetDistrict(cityCode: xsd:integer) -> result: ns0:ResultInfo, districts: ns0:DistrictList
+            
+            GetNeighborhoods(districtId: xsd:long) -> result: ns0:ResultInfo, neighborhoods: ns0:NeighborhoodListData
+

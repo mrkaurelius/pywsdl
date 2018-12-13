@@ -111,10 +111,55 @@ def categoryDriver():
 	return client
 	pass
 
+def cityDriver():
+	settings = Settings(strict=False, xml_huge_tree=True)
+	wsdl = 'https://api.n11.com/ws/CityService.wsdl' 
+	history = HistoryPlugin()
+	client = zeep.Client(wsdl=wsdl,plugins=[history],settings = settings)
+	return client
+	pass	
+
+def getGetCities():
+	client = cityDriver()
+	full_result = client.service.GetCities()
+	full_result_ordered = zeep.helpers.serialize_object(full_result, target_cls= collections.OrderedDict)
+	print(">>> result: ", full_result['result']['status'])
+	#print(full_result)
+	cityList = full_result_ordered['cities']['city']
+	#print(type(cityList))
+	for listElement in cityList:
+		#print(listElement) -> ordereddict 
+		print(str(listElement['cityCode']) ," -> ", str(listElement['cityId']) ," -> ", str(listElement['cityName']) ) 
+		pass
+	pass
+
+def getGetCity():
+	cityPlate = 29
+	client = cityDriver()
+	full_result = client.service.GetCity(cityPlate)
+	full_result_ordered = zeep.helpers.serialize_object(full_result, target_cls= collections.OrderedDict)
+	print(">>> result: ", full_result['result']['status'])
+	print(full_result)
+	cityAttr = full_result_ordered['city']
+	for k, v in cityAttr.items(): #bu standarta donuyorum 
+		print(k ,v)
+		pass
+	pass
+
+def getGetDistrict(): #alt ilçeleri listeleme
+	cityPlate = 29
+	client = cityDriver()
+	full_result = client.service.GetDistrict(cityPlate)
+	full_result_ordered = zeep.helpers.serialize_object(full_result, target_cls= collections.OrderedDict)
+	print(">>> result: ", full_result['result']['status'])
+	print(full_result) #!!! ilçe bilgileri raw element geldi 
+
+###!!! NETWOEK EXEPCTİONLARINI AYALA
 ###!!! NESNESLER BU YONTEMLE ERISMENIN ZARARLARI NE OLABLIR
 ###!!! SIKINTILI OLANLAR ANA KATEGORİLER DISINDA PATLIYOR
 ###!!! NEYI NEYLE ATLATICAGIMIZI IYICE KAVRA
-
+###!!! RAW ELEMENTSI ZEEP ILE HALLEDEBİLİR MIYIM 
+#
 authfileName = "auth";
 lines = [line.rstrip('\n') for line in open(authfileName)] # file objesi ???
 appKey = lines[0]
@@ -129,14 +174,17 @@ client = zeep.Client(wsdl=wsdl,plugins=[history],settings = settings)
 """
 pagingData = {'currentPage' : 0 , 'pageSize' : 100}
 
-#categoryDriver() #!!! DETAYLI TESTLERINI YAP simdilik hata yok
+#categoryDriver() #!!! DETAYLI TESTLERINI YAP simdilik hata yok BOSUNA VAGIRMA PERFOMANSA ETKISI VAT
+cityDriver()
 #GetTopLevelCatIterate() #GetTopLevelCategories
 #GetSubCategoriesIterate() #Parametre ayarla #!!!SIKINTI 
 #GetParentCategoryIterate() 
 #GetCategoryAttributesIdIterate() #!!!SIKINTI !!!SIKINTI LXML
 #GetCategoryAttributeValueIterate()
 #GetCategoryAttributesIterate() #!!!SIKINTI LXML
-
+#getGetCities()
+#getGetCity()
+getGetDistrict()
 # 10.12.18 07:37 BURADA KALDIM KATEGORILER NEREDEYSE BITTI
 
 """ 

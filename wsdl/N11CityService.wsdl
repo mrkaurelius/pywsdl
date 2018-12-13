@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.n11.com/ws/schemas" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.n11.com/ws/schemas" targetNamespace="http://www.n11.com/ws/schemas">
+    <wsdl:types>
+        <xs:schema xmlns:n11="http://www.n11.com/ws/schemas" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.n11.com/ws/schemas">
+            <xs:element name="GetCitiesRequest">
+                <xs:complexType/>
+            </xs:element>
+            <xs:element name="GetCitiesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="n11:ResultInfo"/>
+                        <xs:element name="cities" type="n11:CityList"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCityRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="cityCode" type="xs:integer"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCityResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="n11:ResultInfo"/>
+                        <xs:element name="city" type="n11:CityData"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetDistrictRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="cityCode" type="xs:integer"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetDistrictResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="n11:ResultInfo"/>
+                        <xs:element name="districts" type="n11:DistrictList"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetNeighborhoodsRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="districtId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetNeighborhoodsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="n11:ResultInfo"/>
+                        <xs:element name="neighborhoods" type="n11:NeighborhoodListData"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="CityData">
+                <xs:sequence>
+                    <xs:element name="cityCode" type="xs:string"/>
+                    <xs:element name="cityId" type="xs:long"/>
+                    <xs:element name="cityName" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CityList">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="city" type="n11:CityData"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CreateCityData">
+                <xs:sequence>
+                    <xs:element name="cityId" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="DistrictData">
+                <xs:sequence>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="id" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="DistrictList">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="district" type="n11:DistrictData"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CreateDistrictData">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="NeighborhoodData">
+                <xs:sequence>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="id" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="NeighborhoodListData">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="neighborhood" type="n11:NeighborhoodData"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="BaseResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="status" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="errorCode" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="errorMessage" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="errorCategory" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ResultInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="status" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="errorCode" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="errorMessage" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="errorCategory" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="GetCitiesRequest">
+        <wsdl:part element="tns:GetCitiesRequest" name="GetCitiesRequest"/>
+    </wsdl:message>
+    <wsdl:message name="GetCitiesResponse">
+        <wsdl:part element="tns:GetCitiesResponse" name="GetCitiesResponse"/>
+    </wsdl:message>
+    <wsdl:message name="GetCityRequest">
+        <wsdl:part element="tns:GetCityRequest" name="GetCityRequest"/>
+    </wsdl:message>
+    <wsdl:message name="GetCityResponse">
+        <wsdl:part element="tns:GetCityResponse" name="GetCityResponse"/>
+    </wsdl:message>
+    <wsdl:message name="GetDistrictRequest">
+        <wsdl:part element="tns:GetDistrictRequest" name="GetDistrictRequest"/>
+    </wsdl:message>
+    <wsdl:message name="GetDistrictResponse">
+        <wsdl:part element="tns:GetDistrictResponse" name="GetDistrictResponse"/>
+    </wsdl:message>
+    <wsdl:message name="GetNeighborhoodsRequest">
+        <wsdl:part element="tns:GetNeighborhoodsRequest" name="GetNeighborhoodsRequest"/>
+    </wsdl:message>
+    <wsdl:message name="GetNeighborhoodsResponse">
+        <wsdl:part element="tns:GetNeighborhoodsResponse" name="GetNeighborhoodsResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="CityServicePort">
+        <wsdl:operation name="GetCities">
+            <wsdl:input message="tns:GetCitiesRequest" name="GetCitiesRequest"/>
+            <wsdl:output message="tns:GetCitiesResponse" name="GetCitiesResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetCity">
+            <wsdl:input message="tns:GetCityRequest" name="GetCityRequest"/>
+            <wsdl:output message="tns:GetCityResponse" name="GetCityResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetDistrict">
+            <wsdl:input message="tns:GetDistrictRequest" name="GetDistrictRequest"/>
+            <wsdl:output message="tns:GetDistrictResponse" name="GetDistrictResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetNeighborhoods">
+            <wsdl:input message="tns:GetNeighborhoodsRequest" name="GetNeighborhoodsRequest"/>
+            <wsdl:output message="tns:GetNeighborhoodsResponse" name="GetNeighborhoodsResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CityServicePortSoap11" type="tns:CityServicePort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetCities">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetCitiesRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetCitiesResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetCity">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetCityRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetCityResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetDistrict">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetDistrictRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetDistrictResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetNeighborhoods">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetNeighborhoodsRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetNeighborhoodsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="CityServicePortService">
+        <wsdl:port binding="tns:CityServicePortSoap11" name="CityServicePortSoap11">
+            <soap:address location="https://api.n11.com/ws/cityService/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
