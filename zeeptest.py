@@ -23,20 +23,32 @@ def GetTopLevelCatIterate():
 	#returne gerek varmı gerekli iterasyonu burda yaparız gibi
 	pass
 
-def GetSubCategoriesIterate(): #!!!SIKINTI #!!! mainCatId icin parametre ayarla PARAMETRELERİ OGREN 
+def GetSubCategoriesIterate(): #!!! mainCatId icin parametre ayarla  # BUNU BIRDE TEST ET
 	# 1003221 Fitness & Kondisyon ana kategori 
 	client = categoryDriver()
-	mainCatId = 1003221
+	mainCatId = 1003221 #fitness
 	full_result = client.service.GetSubCategories(auth,mainCatId)
 	full_result_ordered = zeep.helpers.serialize_object(full_result, target_cls= collections.OrderedDict)
 	print(">>> result: ", full_result['result']['status'])
-	#BURADAKI SKINITI GELEN CEVABIN birden fazla olması subcatlistin sizeında for ile birseyler yapılabilir
-	subCatOrderedDict = full_result_ordered['category'][0]['subCategoryList'] #buradan istersem ust kategoriyide itere edebilirim 
-	#print(subCatOrderedDict) #!!! üst kategoriler birden falza olabirmi ?? 
+	print(full_result)
+	#subCatOrderedDict = full_result_ordered['category'][0]['subCategoryList'] #buradan istersem ust kategoriyide itere edebilirim 
+	mylists = full_result_ordered['category']
+	for mainListElement in mylists:				#BIRDEN FAZLA KATEGORİ GELIRSE ONLARI ISLEMEK ICIN, 	
+		mainID = mainListElement['id']			#BUNLARI BU SEKILDE KULLANMAK ETKILI OLMAZ 
+		mainName = mainListElement['name']
+		subCategory = mainListElement['subCategoryList']['subCategory']
+		for subCategoryDict in subCategory:
+			for k,v in subCategoryDict.items():
+				print(k,v)		#BUNUN FAYDALRI VAR AMA HER IMPLEMENTASYONDA GEREKLI OLACAK MI ?
+				pass
+		pass
+
+	"""	
 	for DictElement in subCatOrderedDict['subCategory']:
 		print(type(DictElement))
 		print(str(DictElement['id']) ," -> ", str(DictElement['name']))
 	pass
+	"""
 
 def GetParentCategoryIterate():
 	client = categoryDriver()
@@ -48,24 +60,30 @@ def GetParentCategoryIterate():
 	mydic = full_result_ordered['category']['parentCategory'] # zeep den ordereddict e cevirmesen bile bir sekilde calısıyor 
 	print(str(mydic['id'] ) ," -> ", str(mydic['name']))
 
-def GetCategoryAttributesIdIterate():#!!!SIKINTI !!!SIKINTI LXML
+def GetCategoryAttributesIdIterate():#!!!SIKINTI LXML'i recursive sekilde itere etmenin yolunu ara 
+	#rawelementleri buluyour ITEREETMIYOR
 	client = categoryDriver()
 	mainCatId = 1003221
 	full_result = client.service.GetCategoryAttributesId(auth,mainCatId)
 	full_result_ordered = zeep.helpers.serialize_object(full_result, target_cls= collections.OrderedDict)
 	print(">>> result: ", full_result['result']['status'])
+	#print(full_result)
 	#BURADAKI SKINITI GELEN CEVABIN birden fazla olması subcatlistin sizeında for ile birseyler yapılabilir
-	rawElement = full_result_ordered['categoryProductAttributeList']['categoryProductAttribute'][0]['_raw_elements']
-	print(type(rawElement)) # deque e ulastık ama lxml.etree objesi 
-	for dequeElement in rawElement:
-		print(type(dequeElement))
-		root = dequeElement.getroottree() #lxml i tuttuk bunu python data type nasıl kolay bit sekilde geciririz
-		print(etree.tostring(root,pretty_print=True).decode("utf-8"))
+	categoryProductAttributeList = full_result_ordered['categoryProductAttributeList']['categoryProductAttribute']
+	#print(type(rawElement)) # deque e ulastık ama lxml.etree objesi 
+	# liste olan categoryProductAttribute
+	for listElement in categoryProductAttributeList:
+		#print(listElement)	
+		for dequeElement in listElement['_raw_elements']:
+			root = dequeElement.getroottree() #lxml i tuttuk bunu python data type nasıl kolay bit sekilde geciririz
+			print(etree.tostring(root,pretty_print=True).decode("utf-8"))
+			pass
 		pass
-	#lxml ogrenip kendim birseyler yapsam daha kolay olur gibi
-	#!!!LXML DE BIRAKTIM
+
+
 	#https://stackoverflow.com/questions/7684333/converting-xml-to-dictionary-using-elementtree BURADA BIR ORNEK VAR
-	print(rawElement)
+	#zeep rawelementin valid oldugunu anlamıyormu yoksa ben mi beceremiyorum
+	#!!! lxml.etree zeep donusumu yapmam lazım yada direkt lsml python native baska bir sekilde donusturecegim (recursive tree iterate)
 	pass
 
 def GetCategoryAttributeValueIterate():
@@ -82,7 +100,8 @@ def GetCategoryAttributeValueIterate():
 		pass
 
 #bu son olsun bu son
-def GetCategoryAttributesIterate(): # !!!SIKINTI LXML
+
+def GetCategoryAttributesIterate(): # !!!SIKINTI LXML'i recursive sekilde itere etmenin yolunu ara
 	client = categoryDriver()
 	mainCatId = 1003221
 	pagingData = {'currentPage' : 0 , 'pageSize' : 100}
@@ -102,22 +121,6 @@ def GetCategoryAttributesIterate(): # !!!SIKINTI LXML
 	#!!!LXML DE BIRAKTIM
 	print(rawElement)
 	pass
-
-def categoryDriver():	
-	settings = Settings(strict=False, xml_huge_tree=True)
-	wsdl = 'https://api.n11.com/ws/CategoryService.wsdl' 
-	history = HistoryPlugin()
-	client = zeep.Client(wsdl=wsdl,plugins=[history],settings = settings)
-	return client
-	pass
-
-def cityDriver():
-	settings = Settings(strict=False, xml_huge_tree=True)
-	wsdl = 'https://api.n11.com/ws/CityService.wsdl' 
-	history = HistoryPlugin()
-	client = zeep.Client(wsdl=wsdl,plugins=[history],settings = settings)
-	return client
-	pass	
 
 def getGetCities():
 	client = cityDriver()
@@ -141,51 +144,108 @@ def getGetCity():
 	print(">>> result: ", full_result['result']['status'])
 	print(full_result)
 	cityAttr = full_result_ordered['city']
-	for k, v in cityAttr.items(): #bu standarta donuyorum 
+	for k, v in cityAttr.items(): #bu standarta mı donsem
 		print(k ,v)
 		pass
 	pass
 
-def getGetDistrict(): #alt ilçeleri listeleme
+def getGetDistrict(): #!!!SIKINTI LXML #!!!gerekesız yere 6 array donuyor buyuk ihtimal n11 hatası  #alt ilçeleri listeleme
+	#root = dequeElement.getroottree() #lxml i tuttuk bunu python data type nasıl kolay bit sekilde geciririz
+	#print(etree.tostring(root,pretty_print=True).decode("utf-8"))
 	cityPlate = 29
 	client = cityDriver()
 	full_result = client.service.GetDistrict(cityPlate)
 	full_result_ordered = zeep.helpers.serialize_object(full_result, target_cls= collections.OrderedDict)
 	print(">>> result: ", full_result['result']['status'])
 	print(full_result) #!!! ilçe bilgileri raw element geldi 
+	districstList = full_result['districts']['district'] #!!! full_result_ordered KULLANILMADI
+	for listElement in districstList:
+		dequeElement =  listElement['_raw_elements']
+		for x in dequeElement:
+			root = x.getroottree()
+			print(etree.tostring(root,pretty_print=True).decode("utf-8")) #!!! SOAP DECODING ?
+		pass
 
-###!!! NETWOEK EXEPCTİONLARINI AYALA
+def getGetNeighborhoods(): #!!!SIKINTI LXML
+	# 22339 gümüşhane merkez
+	districtId = 22339 
+	client = cityDriver()
+	full_result = client.service.GetNeighborhoods(districtId)
+	full_result_ordered = zeep.helpers.serialize_object(full_result, target_cls= collections.OrderedDict)
+	print(">>> result: ", full_result['result']['status'])
+	neighborhoodsList = full_result_ordered['neighborhoods']['neighborhood']
+	for listElement in neighborhoodsList:
+		rawElement = listElement['_raw_elements']
+		for dequeElement in rawElement:
+			root = dequeElement.getroottree() #lxml i tuttuk bunu python data type nasıl kolay bit sekilde geciririz
+			print(etree.tostring(root,pretty_print=True).decode("utf-8"))
+			pass
+		#print(type(rawElement))
+		pass
+	print(full_result)
+	pass
+
+def categoryDriver():	
+	settings = Settings(strict=False, xml_huge_tree=True)
+	wsdl = 'https://api.n11.com/ws/CategoryService.wsdl' 
+	history = HistoryPlugin()
+	client = zeep.Client(wsdl=wsdl,plugins=[history],settings = settings)
+	return client
+	pass
+
+def cityDriver():
+	settings = Settings(strict=False, xml_huge_tree=True)
+	wsdl = 'https://api.n11.com/ws/CityService.wsdl' 
+	history = HistoryPlugin()
+	client = zeep.Client(wsdl=wsdl,plugins=[history],settings = settings)
+	return client
+	pass	
+
+def productDriver():
+	settings = Settings(strict=False, xml_huge_tree=True)
+	wsdl = 'https://api.n11.com/ws/ProductService.wsdl'
+	history = HistoryPlugin()
+	client = zeep.Client(wsdl=wsdl,plugins=[history],settings = settings)
+	return client
+	pass
+
+def getGetProductList():
+	pagingData = {'currentPage' : 0 , 'pageSize' : 100}
+	client = productDriver()
+	full_result = client.service.GetProductList(auth,pagingData)
+	full_result_ordered = zeep.helpers.serialize_object(full_result, target_cls= collections.OrderedDict)
+	print(">>> result: ", full_result['result']['status'])
+	print(full_result)
+
+###!!! EXCEPTİONLARI OGREN VE NETWORK EXEPCTİONLARINI AYALA
 ###!!! NESNESLER BU YONTEMLE ERISMENIN ZARARLARI NE OLABLIR
-###!!! SIKINTILI OLANLAR ANA KATEGORİLER DISINDA PATLIYOR
-###!!! NEYI NEYLE ATLATICAGIMIZI IYICE KAVRA
 ###!!! RAW ELEMENTSI ZEEP ILE HALLEDEBİLİR MIYIM 
-#
+
+#Ürün Listeleme (GetProductList) detaylı urun bilgilerini alabilmek icin bunu calıstır
+
 authfileName = "auth";
 lines = [line.rstrip('\n') for line in open(authfileName)] # file objesi ???
 appKey = lines[0]
 appSecret = lines[1]
 auth = { 'appKey' : appKey , 'appSecret' : appSecret}
-
-"""
-settings = Settings(strict=False, xml_huge_tree=True)
-wsdl = 'https://api.n11.com/ws/CategoryService.wsdl' 
-history = HistoryPlugin()
-client = zeep.Client(wsdl=wsdl,plugins=[history],settings = settings)
-"""
 pagingData = {'currentPage' : 0 , 'pageSize' : 100}
+ 
 
-#categoryDriver() #!!! DETAYLI TESTLERINI YAP simdilik hata yok BOSUNA VAGIRMA PERFOMANSA ETKISI VAT
-cityDriver()
+
+#Parametre ayarla 
+#categoryDriver() #!!! DETAYLI TESTLERINI YAP simdilik hata yok BOSUNA CAGIRMA PERFOMANSA ETKISI VAR
+#cityDriver()
 #GetTopLevelCatIterate() #GetTopLevelCategories
-#GetSubCategoriesIterate() #Parametre ayarla #!!!SIKINTI 
+#GetSubCategoriesIterate() 
 #GetParentCategoryIterate() 
-#GetCategoryAttributesIdIterate() #!!!SIKINTI !!!SIKINTI LXML
+#GetCategoryAttributesIdIterate() #!!!SIKINTI LXML # BURADA KALDIM
 #GetCategoryAttributeValueIterate()
 #GetCategoryAttributesIterate() #!!!SIKINTI LXML
 #getGetCities()
 #getGetCity()
-getGetDistrict()
-# 10.12.18 07:37 BURADA KALDIM KATEGORILER NEREDEYSE BITTI
+#getGetDistrict()
+#getGetNeighborhoods() #BUNLARI CACHE ALMANIN FAYDASI OLUR 
+getGetProductList()
 
 """ 
 requesti lxml formatına cevirme

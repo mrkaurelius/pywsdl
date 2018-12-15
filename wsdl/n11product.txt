@@ -1,0 +1,203 @@
+
+Prefixes:
+     ns0: http://www.n11.com/ws/schemas
+     xsd: http://www.w3.org/2001/XMLSchema
+
+Global elements:
+     ns0:AdaptUnificationProductsRequest(auth: ns0:Authentication)
+     ns0:AdaptUnificationProductsResponse(result: ns0:ResultInfo)
+    
+     ns0:DeleteProductByIdRequest(auth: ns0:Authentication, productId: xsd:long)
+     ns0:DeleteProductByIdResponse(result: ns0:ResultInfo, product: ns0:ProductBasic)
+    
+     ns0:DeleteProductBySellerCodeRequest(auth: ns0:Authentication, productSellerCode: xsd:string)
+     ns0:DeleteProductBySellerCodeResponse(result: ns0:ResultInfo, product: ns0:ProductBasic)
+    
+     ns0:GetProductByProductIdRequest(auth: ns0:Authentication, productId: xsd:long)
+     ns0:GetProductByProductIdResponse(result: ns0:ResultInfo, product: ns0:Product)
+    
+     ns0:GetProductBySellerCodeRequest(auth: ns0:Authentication, sellerCode: xsd:string)
+     ns0:GetProductBySellerCodeResponse(result: ns0:ResultInfo, product: ns0:Product)
+    
+     ns0:GetProductListRequest(auth: ns0:Authentication, pagingData: ns0:RequestPagingData)
+     ns0:GetProductListResponse(result: ns0:ResultInfo, products: ns0:ProductBasicList, pagingData: ns0:PagingData)
+    
+     ns0:GetProductQuestionDetailRequest(auth: ns0:Authentication, productQuestionId: xsd:long)
+     ns0:GetProductQuestionDetailResponse(productQuestion: ns0:ProductQuestionDetail)
+    
+     ns0:GetProductQuestionListRequest(auth: ns0:Authentication, productQuestionSearch: ns0:ProductQuestionSearch, pagingData: ns0:RequestPagingData)
+     ns0:GetProductQuestionListResponse(productQuestions: ns0:ProductQuestionList, pagingData: ns0:PagingData)
+    
+     ns0:SaveProductAnswerRequest(auth: ns0:Authentication, productQuestionId: xsd:long, answer: xsd:string)
+     ns0:SaveProductAnswerResponse(result: ns0:ResultInfo)
+    
+     ns0:SaveProductRequest(auth: ns0:Authentication, product: ns0:ProductRequest)
+     ns0:SaveProductResponse(result: ns0:ResultInfo, product: ns0:ProductBasic)
+    
+     ns0:SearchProductsRequest(auth: ns0:Authentication, pagingData: ns0:RequestPagingData, productSearch: ns0:ProductSearch)
+     ns0:SearchProductsResponse(result: ns0:ResultInfo, products: ns0:ProductBasicList, pagingData: ns0:PagingData)
+    
+     ns0:UpdateDiscountValueByProductIdRequest(auth: ns0:Authentication, productId: xsd:long, productDiscount: ns0:SellerProductDiscount)
+     ns0:UpdateDiscountValueByProductIdResponse(result: ns0:ResultInfo, product: ns0:ProductBasic)
+    
+     ns0:UpdateDiscountValueBySellerCodeRequest(auth: ns0:Authentication, productSellerCode: xsd:string, productDiscount: ns0:SellerProductDiscount)
+     ns0:UpdateDiscountValueBySellerCodeResponse(result: ns0:ResultInfo, product: ns0:ProductBasic)
+    
+     ns0:UpdateProductBasicRequest(auth: ns0:Authentication, productId: xsd:long, productSellerCode: xsd:string, price: xsd:decimal, productDiscount: ns0:SellerProductDiscount, stockItems: ns0:ProductUpdateSkuBasicRequestItemList, description: xsd:string, images: ns0:ProductImageList)
+     ns0:UpdateProductBasicResponse(result: ns0:ResultInfo, product: ns0:ProductBasic)
+     ns0:UpdateProductPriceByIdRequest(auth: ns0:Authentication, productId: xsd:long, price: xsd:decimal, currencyType: xsd:integer, stockItems: ns0:ProductSkuBasicRequestItemList)
+     ns0:UpdateProductPriceByIdResponse(result: ns0:ResultInfo, product: ns0:ProductBasic)
+     ns0:UpdateProductPriceBySellerCodeRequest(auth: ns0:Authentication, productSellerCode: xsd:string, price: xsd:decimal, currencyType: xsd:integer, stockItems: ns0:ProductSkuBasicRequestItemList)
+     ns0:UpdateProductPriceBySellerCodeResponse(result: ns0:ResultInfo, product: ns0:ProductBasic)
+     
+
+Global types:
+     xsd:anyType
+     ns0:Authentication(appKey: xsd:string, appSecret: xsd:string)
+     ns0:BaseRequest(authentication: ns0:Authentication)
+     ns0:BaseResponse(status: xsd:string, errorCode: xsd:string, errorMessage: xsd:string, errorCategory: xsd:string)
+     ns0:Category(id: xsd:long, name: xsd:string, fullName: xsd:string)
+     ns0:CategoryRequest(id: xsd:long)
+     ns0:DateRange(startDate: xsd:string, endDate: xsd:string)
+     ns0:PagingData(currentPage: xsd:int, pageSize: xsd:int, totalCount: xsd:long, pageCount: xsd:int)
+     ns0:Product(id: xsd:long, title: xsd:string, subtitle: xsd:string, displayPrice: xsd:decimal, price: xsd:decimal, productSellerCode: xsd:string, description: xsd:string, category: ns0:Category, specialProductInfoList: ns0:SpecialProductInfoList, preparingDay: xsd:integer, saleStartDate: xsd:string, saleEndDate: xsd:string, productCondition: xsd:string, expirationDate: xsd:string, images: ns0:ProductImageList, stockItems: ns0:ProductSkuList, discount: ns0:ProductDiscount, shipmentTemplate: xsd:string, attributes: ns0:ProductAttributeList, approvalStatus: xsd:integer, saleStatus: xsd:integer, currencyAmount: xsd:decimal, currencyType: xsd:integer)
+     ns0:ProductAttribute(id: xsd:long, name: xsd:string, value: xsd:string)
+     ns0:ProductAttributeList(attribute: ns0:ProductAttribute[])
+     ns0:ProductAttributeRequest(name: xsd:string, value: xsd:string)
+     ns0:ProductAttributeRequestList(attribute: ns0:ProductAttributeRequest[])
+     ns0:ProductBasic(id: xsd:long, productSellerCode: xsd:string, title: xsd:string, subtitle: xsd:string, price: xsd:decimal, displayPrice: xsd:decimal, saleStatus: xsd:integer, approvalStatus: xsd:integer, stockItems: ns0:ProductSkuList, oldPrice: xsd:decimal, currencyAmount: xsd:decimal, currencyType: xsd:integer)
+     ns0:ProductBasicList(product: ns0:ProductBasic[])
+     ns0:ProductData(version: xsd:long, subTitle: xsd:string, producedDate: xsd:string, expireDate: xsd:string, saleEndDate: xsd:string, saleStartDate: xsd:string, description: xsd:string, price: xsd:decimal, maxPurchaseQuantity: xsd:integer)
+     ns0:ProductDiscount(startDate: xsd:string, endDate: xsd:string, type: xsd:string, value: xsd:string, maxPurchaseCount: xsd:string)
+     ns0:ProductDiscountRequest(startDate: xsd:string, endDate: xsd:string, type: xsd:string, value: xsd:string)
+     ns0:ProductImage(url: xsd:string, order: xsd:integer)
+     ns0:ProductImageList(image: ns0:ProductImage[])
+     ns0:ProductQuestion(id: xsd:long, productId: xsd:long, productTitle: xsd:string, questionSubject: xsd:string, question: xsd:string, answer: xsd:string)
+     ns0:ProductQuestionDetail(productId: xsd:long, productTitle: xsd:string, questionSubject: xsd:string, question: xsd:string, answer: xsd:string, fullName: xsd:string, email: xsd:string, productStatus: xsd:string, status: xsd:string, questionDate: xsd:date, answeredDate: xsd:date, sellerExpose: xsd:string, buyerExpose: xsd:string)
+     ns0:ProductQuestionList(productQuestion: ns0:ProductQuestion[])
+     ns0:ProductQuestionSearch(productId: xsd:long, buyerEmail: xsd:string, subject: xsd:string, status: ns0:ProductQuestionStatus, questionDate: xsd:string)
+     ns0:ProductQuestionStatus
+     ns0:ProductRequest(productSellerCode: xsd:string, title: xsd:string, subtitle: xsd:string, description: xsd:string, category: ns0:CategoryRequest, specialProductInfoList: ns0:SpecialProductInfoList, price: xsd:decimal, currencyType: xsd:integer, images: ns0:ProductImageList, approvalStatus: xsd:integer, attributes: ns0:ProductAttributeRequestList, saleStartDate: xsd:string, saleEndDate: xsd:string, productionDate: xsd:string, expirationDate: xsd:string, productCondition: xsd:string, preparingDay: xsd:integer, discount: ns0:ProductDiscountRequest, shipmentTemplate: xsd:string, stockItems: ns0:ProductSkuRequestList)
+     ns0:ProductSearch(name: xsd:string, saleDate: ns0:DateRange, approvalStatus: ns0:ProductStatus, bundle: xsd:boolean, mpn: xsd:string, gtin: xsd:string, oem: xsd:string)
+     ns0:ProductSku(sellerStockCode: xsd:string, optionPrice: xsd:decimal, currencyAmount: xsd:decimal, displayPrice: xsd:decimal, oldOptionPrice: xsd:decimal, gtin: xsd:string, mpn: xsd:string, oem: xsd:string, bundle: xsd:boolean, id: xsd:long, version: xsd:long, quantity: xsd:integer, attributes: ns0:ProductAttributeList)
+     ns0:ProductSkuBasic(sellerStockCode: xsd:string, optionPrice: xsd:decimal, currencyAmount: xsd:decimal, displayPrice: xsd:decimal, oldOptionPrice: xsd:decimal, gtin: xsd:string, mpn: xsd:string, oem: xsd:string, bundle: xsd:boolean)
+     ns0:ProductSkuBasicItemList(stockItem: ns0:ProductSkuBasic[])
+     ns0:ProductSkuBasicRequest(sellerStockCode: xsd:string, optionPrice: xsd:decimal)
+     ns0:ProductSkuBasicRequestItemList(stockItem: ns0:ProductSkuBasicRequest[])
+     ns0:ProductSkuItemList(stockItem: ns0:ProductSku[])
+     ns0:ProductSkuList(id: xsd:long, stockItem: ns0:ProductSku[], productSellerCode: xsd:string)
+     ns0:ProductSkuRequest(bundle: xsd:boolean, mpn: xsd:string, gtin: xsd:string, oem: xsd:string, quantity: xsd:integer, sellerStockCode: xsd:string, attributes: ns0:ProductAttributeRequestList, optionPrice: xsd:decimal)
+     ns0:ProductSkuRequestList(stockItem: ns0:ProductSkuRequest[])
+     ns0:ProductStatus
+     ns0:ProductUpdateSkuBasicRequest(sellerStockCode: xsd:string, id: xsd:long, optionPrice: xsd:decimal, quantity: xsd:integer)
+     ns0:ProductUpdateSkuBasicRequestItemList(stockItem: ns0:ProductUpdateSkuBasicRequest[])
+     ns0:ProductWithId(id: xsd:long)
+     ns0:ProductWithIdAndStockAttributes(id: xsd:long, stockItems: ns0:StockItemForAddStockWithAttributesList)
+     ns0:ProductWithIdAndStockAttributesForUpdate(id: xsd:long, stockItems: ns0:StockItemForUpdateStockWithAttributesList)
+     ns0:ProductWithIdAndStockId(id: xsd:long, stockList: ns0:StockItemForAddStockWithIdList)
+     ns0:ProductWithIdAndStockSellerCode(id: xsd:long, stockList: ns0:StockItemForAddStockWithSellerStockCodeList)
+     ns0:ProductWithSellerCode(sellerCode: xsd:string)
+     ns0:RequestPagingData(currentPage: xsd:int, pageSize: xsd:int)
+     ns0:ResultInfo(status: xsd:string, errorCode: xsd:string, errorMessage: xsd:string, errorCategory: xsd:string)
+     ns0:SellerProductDiscount(discountType: xsd:integer, discountValue: xsd:double, discountStartDate: xsd:string, discountEndDate: xsd:string)
+     ns0:SpecialProductInfoApiModel(key: xsd:string, value: xsd:string)
+     ns0:SpecialProductInfoList(specialProductInfo: ns0:SpecialProductInfoApiModel[])
+     ns0:StockAttribute(name: xsd:string, value: xsd:string)
+     ns0:StockAttributeList(attribute: ns0:StockAttribute[])
+     ns0:StockDataWithProductId(stockItems: ns0:StockItemList[], product: ns0:ProductWithId)
+     ns0:StockDataWithProductSellerCode(stockItems: ns0:StockItemList[], product: ns0:ProductWithSellerCode)
+     ns0:StockItem(id: xsd:long)
+     ns0:StockItemForAddStockWithAttributes(attributes: ns0:StockAttributeList, quantityToIncrease: xsd:integer, version: xsd:long)
+     ns0:StockItemForAddStockWithAttributesList(stockItem: ns0:StockItemForAddStockWithAttributes[])
+     ns0:StockItemForAddStockWithId(id: xsd:long, quantityToIncrease: xsd:integer, version: xsd:long)
+     ns0:StockItemForAddStockWithIdList(stockItem: ns0:StockItemForAddStockWithId[])
+     ns0:StockItemForAddStockWithSellerStockCode(sellerStockCode: xsd:string, quantityToIncrease: xsd:integer, version: xsd:long)
+     ns0:StockItemForAddStockWithSellerStockCodeList(stockItem: ns0:StockItemForAddStockWithSellerStockCode[])
+     ns0:StockItemForUpdateStockWithAttributes(attributes: ns0:StockAttributeList, quantity: xsd:integer, version: xsd:long)
+     ns0:StockItemForUpdateStockWithAttributesList(stockItem: ns0:StockItemForUpdateStockWithAttributes[])
+     ns0:StockItemForUpdateStockWithId(id: xsd:long, quantity: xsd:integer, version: xsd:long, delist: xsd:boolean)
+     ns0:StockItemForUpdateStockWithIdList(stockItem: ns0:StockItemForUpdateStockWithId[])
+     ns0:StockItemForUpdateStockWithSellerStockCode(sellerStockCode: xsd:string, quantity: xsd:integer, version: xsd:long)
+     ns0:StockItemForUpdateStockWithSellerStockCodeList(stockItem: ns0:StockItemForUpdateStockWithSellerStockCode[])
+     ns0:StockItemList(stockItem: ns0:StockItem[])
+     xsd:ENTITIES
+     xsd:ENTITY
+     xsd:ID
+     xsd:IDREF
+     xsd:IDREFS
+     xsd:NCName
+     xsd:NMTOKEN
+     xsd:NMTOKENS
+     xsd:NOTATION
+     xsd:Name
+     xsd:QName
+     xsd:anySimpleType
+     xsd:anyURI
+     xsd:base64Binary
+     xsd:boolean
+     xsd:byte
+     xsd:date
+     xsd:dateTime
+     xsd:decimal
+     xsd:double
+     xsd:duration
+     xsd:float
+     xsd:gDay
+     xsd:gMonth
+     xsd:gMonthDay
+     xsd:gYear
+     xsd:gYearMonth
+     xsd:hexBinary
+     xsd:int
+     xsd:integer
+     xsd:language
+     xsd:long
+     xsd:negativeInteger
+     xsd:nonNegativeInteger
+     xsd:nonPositiveInteger
+     xsd:normalizedString
+     xsd:positiveInteger
+     xsd:short
+     xsd:string
+     xsd:time
+     xsd:token
+     xsd:unsignedByte
+     xsd:unsignedInt
+     xsd:unsignedLong
+     xsd:unsignedShort
+
+Bindings:
+     Soap11Binding: {http://www.n11.com/ws/schemas}ProductServicePortSoap11
+
+Service: ProductServicePortService
+     Port: ProductServicePortSoap11 (Soap11Binding: {http://www.n11.com/ws/schemas}ProductServicePortSoap11)
+         Operations:
+            
+            AdaptUnificationProducts(auth: ns0:Authentication) -> result: ns0:ResultInfo
+            
+            DeleteProductById(auth: ns0:Authentication, productId: xsd:long) -> result: ns0:ResultInfo, product: ns0:ProductBasic
+            DeleteProductBySellerCode(auth: ns0:Authentication, productSellerCode: xsd:string) -> result: ns0:ResultInfo, product: ns0:ProductBasic
+            
+            GetProductByProductId(auth: ns0:Authentication, productId: xsd:long) -> result: ns0:ResultInfo, product: ns0:Product
+            GetProductBySellerCode(auth: ns0:Authentication, sellerCode: xsd:string) -> result: ns0:ResultInfo, product: ns0:Product
+            
+            GetProductList(auth: ns0:Authentication, pagingData: ns0:RequestPagingData) -> result: ns0:ResultInfo, products: ns0:ProductBasicList, pagingData: ns0:PagingData
+            GetProductQuestionDetail(auth: ns0:Authentication, productQuestionId: xsd:long) -> productQuestion: ns0:ProductQuestionDetail
+            
+            GetProductQuestionList(auth: ns0:Authentication, productQuestionSearch: ns0:ProductQuestionSearch, pagingData: ns0:RequestPagingData) -> productQuestions: ns0:ProductQuestionList, pagingData: ns0:PagingData
+            
+            SaveProduct(auth: ns0:Authentication, product: ns0:ProductRequest) -> result: ns0:ResultInfo, product: ns0:ProductBasic
+            SaveProductAnswer(auth: ns0:Authentication, productQuestionId: xsd:long, answer: xsd:string) -> result: ns0:ResultInfo
+            
+            SearchProducts(auth: ns0:Authentication, pagingData: ns0:RequestPagingData, productSearch: ns0:ProductSearch) -> result: ns0:ResultInfo, products: ns0:ProductBasicList, pagingData: ns0:PagingData
+            
+            UpdateDiscountValueByProductId(auth: ns0:Authentication, productId: xsd:long, productDiscount: ns0:SellerProductDiscount) -> result: ns0:ResultInfo, product: ns0:ProductBasic
+            
+            UpdateDiscountValueBySellerCode(auth: ns0:Authentication, productSellerCode: xsd:string, productDiscount: ns0:SellerProductDiscount) -> result: ns0:ResultInfo, product: ns0:ProductBasic
+            
+            UpdateProductBasic(auth: ns0:Authentication, productId: xsd:long, productSellerCode: xsd:string, price: xsd:decimal, productDiscount: ns0:SellerProductDiscount, stockItems: ns0:ProductUpdateSkuBasicRequestItemList, description: xsd:string, images: ns0:ProductImageList) -> result: ns0:ResultInfo, product: ns0:ProductBasic
+            
+            UpdateProductPriceById(auth: ns0:Authentication, productId: xsd:long, price: xsd:decimal, currencyType: xsd:integer, stockItems: ns0:ProductSkuBasicRequestItemList) -> result: ns0:ResultInfo, product: ns0:ProductBasic
+            
+            UpdateProductPriceBySellerCode(auth: ns0:Authentication, productSellerCode: xsd:string, price: xsd:decimal, currencyType: xsd:integer, stockItems: ns0:ProductSkuBasicRequestItemList) -> result: ns0:ResultInfo, product: ns0:ProductBasic
+

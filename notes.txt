@@ -1,5 +1,9 @@
+#python3 pickle ogrenmek sart oldu cevapların boyutu artamaya basladı
+	>raw elementleri pickleden okuyabilecek miyiz 
 #her seferinde wdsli okumak yerine cache etmek lazım -> sqlite docu sitesinde var
-#zeepin olusturdugu metodları nasıl gorebilirim
-#apiden oturumu yoksa her turlu benim mi parse etmem gerekicek -> lxml
+#apiden olurumu yoksa her turlu benim mi parse etmem gerekicek -> lxml
 #xml agacını serialize etmek icin recursive func kullanabilirim
+	>bunu yapmam sonrasına erteleyebilirim
+#Client objesinin strint ayarını sına 
+#raw xml olusturmak icin once client.service olusturmak gerekiyor 
 >>>METODLAR
