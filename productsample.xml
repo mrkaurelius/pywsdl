@@ -1,0 +1,162 @@
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+  <env:Header/>
+  <env:Body>
+    <ns3:GetProductBySellerCodeResponse xmlns="" xmlns:ns3="http://www.n11.com/ws/schemas">
+      <result>
+        <status>success</status>
+      </result>
+      <product>
+        <currencyAmount>800.00</currencyAmount>
+        <currencyType>1</currencyType>
+        <displayPrice>489.00</displayPrice>
+        <id>301302394</id>
+        <price>800.00</price>
+        <productSellerCode>6C0129607L</productSellerCode>
+        <approvalStatus>2</approvalStatus>
+        <saleStatus>2</saleStatus>
+        <stockItems>
+          <stockItem>
+            <bundle>false</bundle>
+            <currencyAmount>800.00</currencyAmount>
+            <displayPrice>489.00</displayPrice>
+            <optionPrice>800.00</optionPrice>
+            <attributes>
+              <attribute>
+                <name>Ara&#231; Markas&#305;</name>
+                <value>Volkswagen</value>
+              </attribute>
+              <attribute>
+                <name>Ara&#231; Modeli</name>
+                <value>Polo</value>
+              </attribute>
+              <attribute>
+                <name>Ara&#231; Y&#305;l&#305;</name>
+                <value>2015</value>
+              </attribute>
+            </attributes>
+            <id>126541685718</id>
+            <quantity>3</quantity>
+            <version>2</version>
+          </stockItem>
+          <stockItem>
+            <bundle>false</bundle>
+            <currencyAmount>800.00</currencyAmount>
+            <displayPrice>489.00</displayPrice>
+            <optionPrice>800.00</optionPrice>
+            <attributes>
+              <attribute>
+                <name>Ara&#231; Markas&#305;</name>
+                <value>Volkswagen</value>
+              </attribute>
+              <attribute>
+                <name>Ara&#231; Modeli</name>
+                <value>Polo</value>
+              </attribute>
+              <attribute>
+                <name>Ara&#231; Y&#305;l&#305;</name>
+                <value>2016</value>
+              </attribute>
+            </attributes>
+            <id>126541685719</id>
+            <quantity>3</quantity>
+            <version>2</version>
+          </stockItem>
+          <stockItem>
+            <bundle>false</bundle>
+            <currencyAmount>800.00</currencyAmount>
+            <displayPrice>489.00</displayPrice>
+            <optionPrice>800.00</optionPrice>
+            <attributes>
+              <attribute>
+                <name>Ara&#231; Markas&#305;</name>
+                <value>Volkswagen</value>
+              </attribute>
+              <attribute>
+                <name>Ara&#231; Modeli</name>
+                <value>Polo</value>
+              </attribute>
+              <attribute>
+                <name>Ara&#231; Y&#305;l&#305;</name>
+                <value>2017</value>
+              </attribute>
+            </attributes>
+            <id>126541685720</id>
+            <quantity>3</quantity>
+            <version>2</version>
+          </stockItem>
+          <stockItem>
+            <bundle>false</bundle>
+            <currencyAmount>800.00</currencyAmount>
+            <displayPrice>489.00</displayPrice>
+            <optionPrice>800.00</optionPrice>
+            <attributes>
+              <attribute>
+                <name>Ara&#231; Markas&#305;</name>
+                <value>Volkswagen</value>
+              </attribute>
+              <attribute>
+                <name>Ara&#231; Modeli</name>
+                <value>Polo</value>
+              </attribute>
+              <attribute>
+                <name>Ara&#231; Y&#305;l&#305;</name>
+                <value>2018</value>
+              </attribute>
+            </attributes>
+            <id>126541685721</id>
+            <quantity>3</quantity>
+            <version>2</version>
+          </stockItem>
+        </stockItems>
+        <subtitle>Volkswagen Polo Hava Filtre Kutusu 2015 - 2018</subtitle>
+        <title>Polo Hava Filtre Kutusu / Kazan&#305; 1.4TDI - Volkswagen 6C0129607L</title>
+        <attributes/>
+        <category>
+          <fullName>Yedek Par&#231;a &gt; OEM Yedek Par&#231;a &gt; Motor ve &#350;anz&#305;man</fullName>
+          <id>1003080</id>
+          <name>Motor ve &#350;anz&#305;man</name>
+        </category>
+        <description>&lt;div style="font-weight: normal;"&gt; 
+ &lt;br /&gt;
+&lt;/div&gt; 
+&lt;span style="color: rgb(32,32,32);font-family: Arial , Helvetica , sans-serif;font-size: 12.0px;"&gt; 
+ &lt;div style="font-weight: bold;"&gt; 
+  &lt;b style="color: rgb(32,32,32);font-family: Arial , Helvetica , sans-serif;font-size: 12.0px;"&gt; &lt;br /&gt;&lt;/b&gt;
+ &lt;/div&gt; 
+ &lt;div style="font-weight: bold;"&gt; 
+  &lt;b style="color: rgb(32,32,32);font-family: Arial , Helvetica , sans-serif;font-size: 12.0px;"&gt; &lt;br /&gt;&lt;/b&gt;
+ &lt;/div&gt; &lt;b&gt;Her t&amp;uuml;rl&amp;uuml; soru ve g&amp;ouml;r&amp;uuml;&#351;leriniz i&amp;ccedil;in 7/24&amp;nbsp;&lt;font color="#cc0000"&gt;0541 388 26 28&lt;/font&gt;&amp;nbsp;whatsapp hatt&#305;m&#305;zda haz&#305;r beklemekteyiz.&lt;/b&gt;&lt;/span&gt;</description>
+        <discount>
+          <maxPurchaseCount>3</maxPurchaseCount>
+          <type>1</type>
+          <value>311</value>
+        </discount>
+        <images>
+          <image>
+            <order>1</order>
+            <url>https://n11scdn3.akamaized.net/a1/org/otomotiv-motosiklet/motor-ve-sanziman/polo-hava-filtre-kutusu-kazani-14tdi-volkswagen-6c0129607l__1464836678478073.jpg</url>
+          </image>
+          <image>
+            <order>2</order>
+            <url>https://n11scdn.akamaized.net/a1/org/otomotiv-motosiklet/motor-ve-sanziman/polo-hava-filtre-kutusu-kazani-14tdi-volkswagen-6c0129607l__0724560149052550.jpg</url>
+          </image>
+          <image>
+            <order>3</order>
+            <url>https://n11scdn1.akamaized.net/a1/org/otomotiv-motosiklet/motor-ve-sanziman/polo-hava-filtre-kutusu-kazani-14tdi-volkswagen-6c0129607l__0751042066886926.jpg</url>
+          </image>
+          <image>
+            <order>4</order>
+            <url>https://n11scdn3.akamaized.net/a1/org/otomotiv-motosiklet/motor-ve-sanziman/polo-hava-filtre-kutusu-kazani-14tdi-volkswagen-6c0129607l__0804692842081048.png</url>
+          </image>
+        </images>
+        <preparingDay>1</preparingDay>
+        <productCondition>1</productCondition>
+        <saleEndDate>01/01/2050</saleEndDate>
+        <saleStartDate>26/11/2018</saleStartDate>
+        <shipmentTemplate>yedpa kargo</shipmentTemplate>
+        <specialProductInfoList/>
+      </product>
+    </ns3:GetProductBySellerCodeResponse>
+  </env:Body>
+</env:Envelope>
+

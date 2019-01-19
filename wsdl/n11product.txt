@@ -171,17 +171,20 @@ Bindings:
 
 Service: ProductServicePortService
      Port: ProductServicePortSoap11 (Soap11Binding: {http://www.n11.com/ws/schemas}ProductServicePortSoap11)
+        #getGetProductList() 
+        #getGetProductByProductId()
+        #getGetProductBySellerCode()
+        
          Operations:
-            
             AdaptUnificationProducts(auth: ns0:Authentication) -> result: ns0:ResultInfo
             
             DeleteProductById(auth: ns0:Authentication, productId: xsd:long) -> result: ns0:ResultInfo, product: ns0:ProductBasic
             DeleteProductBySellerCode(auth: ns0:Authentication, productSellerCode: xsd:string) -> result: ns0:ResultInfo, product: ns0:ProductBasic
             
-            GetProductByProductId(auth: ns0:Authentication, productId: xsd:long) -> result: ns0:ResultInfo, product: ns0:Product
-            GetProductBySellerCode(auth: ns0:Authentication, sellerCode: xsd:string) -> result: ns0:ResultInfo, product: ns0:Product
+            +GetProductByProductId(auth: ns0:Authentication, productId: xsd:long) -> result: ns0:ResultInfo, product: ns0:Product
+            +GetProductBySellerCode(auth: ns0:Authentication, sellerCode: xsd:string) -> result: ns0:ResultInfo, product: ns0:Product
             
-            GetProductList(auth: ns0:Authentication, pagingData: ns0:RequestPagingData) -> result: ns0:ResultInfo, products: ns0:ProductBasicList, pagingData: ns0:PagingData
+            +GetProductList(auth: ns0:Authentication, pagingData: ns0:RequestPagingData) -> result: ns0:ResultInfo, products: ns0:ProductBasicList, pagingData: ns0:PagingData
             GetProductQuestionDetail(auth: ns0:Authentication, productQuestionId: xsd:long) -> productQuestion: ns0:ProductQuestionDetail
             
             GetProductQuestionList(auth: ns0:Authentication, productQuestionSearch: ns0:ProductQuestionSearch, pagingData: ns0:RequestPagingData) -> productQuestions: ns0:ProductQuestionList, pagingData: ns0:PagingData

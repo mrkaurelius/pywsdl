@@ -2,28 +2,26 @@ import zeep
 import sys
 import collections
 import json
+import pickle
 from lxml import etree
 from zeep import Client , Settings, helpers
 from zeep.plugins import HistoryPlugin
-sys.stdout = open("buildsout","w")
 
-def GetTopLevelCatIterate(): 
+sys.stdout = open("buildsout.xml","w")
 	# fonksyon mantıgını anlamak lazım wsdl nesnesine nasıl bir erişim oluyor
 	# **kwargs ve mapping detayı var onları simdılık atlayacağım ve çağrıları burdan yapmaya calısacağım
+def GetTopLevelCatIterate(): 
+
 	client = categoryDriver()
-	result_topCategories = client.service.GetTopLevelCategories(auth)
-	myResultOrderedDict = zeep.helpers.serialize_object(result_topCategories, target_cls= collections.OrderedDict)
+	full_result = client.service.GetTopLevelCategories(auth)
+	full_result_ordered = zeep.helpers.serialize_object(result_topCategories, target_cls= collections.OrderedDict)
 	print(">>> result: ", result_topCategories['result']['status'])
-	#!!! bunu GetSubCategoriesIterate gore duzenle
-	orderedCats = myResultOrderedDict['categoryList']
+	orderedCats = full_result_ordered['categoryList']
 	bareCatList = orderedCats['category']
 	for listElement in bareCatList:
 		print(str(listElement['id']) ," -> ", str(listElement['name'])) # evet metodun ıskeleti ortaya cıktı
-		pass
-	#returne gerek varmı gerekli iterasyonu burda yaparız gibi
-	pass
 
-def GetSubCategoriesIterate(): #!!! mainCatId icin parametre ayarla  # BUNU BIRDE TEST ET
+def GetSubCategoriesIterate(): #!!! mainCatId icin parametre ayarla  # IC ICE FOR DA PRINT VAR TEST ET
 	# 1003221 Fitness & Kondisyon ana kategori 
 	client = categoryDriver()
 	mainCatId = 1003221 #fitness
@@ -40,15 +38,6 @@ def GetSubCategoriesIterate(): #!!! mainCatId icin parametre ayarla  # BUNU BIRD
 		for subCategoryDict in subCategory:
 			for k,v in subCategoryDict.items():
 				print(k,v)		#BUNUN FAYDALRI VAR AMA HER IMPLEMENTASYONDA GEREKLI OLACAK MI ?
-				pass
-		pass
-
-	"""	
-	for DictElement in subCatOrderedDict['subCategory']:
-		print(type(DictElement))
-		print(str(DictElement['id']) ," -> ", str(DictElement['name']))
-	pass
-	"""
 
 def GetParentCategoryIterate():
 	client = categoryDriver()
@@ -60,31 +49,18 @@ def GetParentCategoryIterate():
 	mydic = full_result_ordered['category']['parentCategory'] # zeep den ordereddict e cevirmesen bile bir sekilde calısıyor 
 	print(str(mydic['id'] ) ," -> ", str(mydic['name']))
 
-def GetCategoryAttributesIdIterate():#!!!SIKINTI LXML'i recursive sekilde itere etmenin yolunu ara 
-	#rawelementleri buluyour ITEREETMIYOR
+def GetCategoryAttributesIdIterate():# TEK DEQUE ELEMENTI GELIYOR ILERIDE SIKINTI OLABILIR
 	client = categoryDriver()
 	mainCatId = 1003221
 	full_result = client.service.GetCategoryAttributesId(auth,mainCatId)
 	full_result_ordered = zeep.helpers.serialize_object(full_result, target_cls= collections.OrderedDict)
 	print(">>> result: ", full_result['result']['status'])
-	#print(full_result)
-	#BURADAKI SKINITI GELEN CEVABIN birden fazla olması subcatlistin sizeında for ile birseyler yapılabilir
+	print(full_result)
 	categoryProductAttributeList = full_result_ordered['categoryProductAttributeList']['categoryProductAttribute']
-	#print(type(rawElement)) # deque e ulastık ama lxml.etree objesi 
-	# liste olan categoryProductAttribute
 	for listElement in categoryProductAttributeList:
-		#print(listElement)	
 		for dequeElement in listElement['_raw_elements']:
 			root = dequeElement.getroottree() #lxml i tuttuk bunu python data type nasıl kolay bit sekilde geciririz
 			print(etree.tostring(root,pretty_print=True).decode("utf-8"))
-			pass
-		pass
-
-
-	#https://stackoverflow.com/questions/7684333/converting-xml-to-dictionary-using-elementtree BURADA BIR ORNEK VAR
-	#zeep rawelementin valid oldugunu anlamıyormu yoksa ben mi beceremiyorum
-	#!!! lxml.etree zeep donusumu yapmam lazım yada direkt lsml python native baska bir sekilde donusturecegim (recursive tree iterate)
-	pass
 
 def GetCategoryAttributeValueIterate():
 	client = categoryDriver()
@@ -99,28 +75,22 @@ def GetCategoryAttributeValueIterate():
 		print(str(listElement['id']) ," -> ", str(listElement['name']) , "dependedName" ,str(listElement['dependedName']) )
 		pass
 
-#bu son olsun bu son
-
-def GetCategoryAttributesIterate(): # !!!SIKINTI LXML'i recursive sekilde itere etmenin yolunu ara
+def GetCategoryAttributesIterate(): # !!!BU TARZDA VALID VE TEKRARSIZ SONUC URETTI BURADAKI SONUCLARI INCELE VE KOLAYLASTIR, PAGINGI HATALI YAPIYORUM
 	client = categoryDriver()
 	mainCatId = 1003221
-	pagingData = {'currentPage' : 0 , 'pageSize' : 100}
+	pagingData = {'currentPage' : 0 , 'pageSize' : 126}
 	full_result = client.service.GetCategoryAttributes(auth,mainCatId,pagingData)
 	full_result_ordered = zeep.helpers.serialize_object(full_result, target_cls= collections.OrderedDict)
-	print(">>> result: ", full_result['result']['status'])
-	print(full_result)
-	#BU OZELLİKLERİ TUTMAK GEREKIRMI full_result_ordered['category']
+	#print(">>> result: ", full_result['result']['status'])
+	#print(full_result)
 	rawElement = full_result_ordered['category']['_raw_elements']
-	print(type(rawElement))
 	for dequeElement in rawElement:
-		print(type(dequeElement))
-		root = dequeElement.getroottree() #lxml i tuttuk bunu python data type nasıl kolay bit sekilde geciririz
-		print(etree.tostring(root,pretty_print=True).decode("utf-8"))
-		pass		
-	#lxml ogrenip kendim birseyler yapsam daha kolay olur gibi
-	#!!!LXML DE BIRAKTIM
-	print(rawElement)
-	pass
+		#print(type(dequeElement))
+		root = dequeElement.getroottree() 
+		#print(etree.tostring(dequeElement,pretty_print=True).decode("utf-8"))
+		break
+	print(etree.tostring(root,pretty_print=True).decode("utf-8")) #ROOT SCOPTA KAYBOLMADI
+			
 
 def getGetCities():
 	client = cityDriver()
@@ -149,41 +119,34 @@ def getGetCity():
 		pass
 	pass
 
-def getGetDistrict(): #!!!SIKINTI LXML #!!!gerekesız yere 6 array donuyor buyuk ihtimal n11 hatası  #alt ilçeleri listeleme
-	#root = dequeElement.getroottree() #lxml i tuttuk bunu python data type nasıl kolay bit sekilde geciririz
-	#print(etree.tostring(root,pretty_print=True).decode("utf-8"))
+def getGetDistrict(): # DISTRCITLER ARRAY SEKLINDE GELIYOR ILERIDE PROBLEM OLABILIR
 	cityPlate = 29
 	client = cityDriver()
 	full_result = client.service.GetDistrict(cityPlate)
 	full_result_ordered = zeep.helpers.serialize_object(full_result, target_cls= collections.OrderedDict)
-	print(">>> result: ", full_result['result']['status'])
-	print(full_result) #!!! ilçe bilgileri raw element geldi 
+	#print(">>> result: ", full_result['result']['status'])
+	#print(full_result) 
 	districstList = full_result['districts']['district'] #!!! full_result_ordered KULLANILMADI
 	for listElement in districstList:
 		dequeElement =  listElement['_raw_elements']
 		for x in dequeElement:
 			root = x.getroottree()
-			print(etree.tostring(root,pretty_print=True).decode("utf-8")) #!!! SOAP DECODING ?
-		pass
+			#print(etree.tostring(root,pretty_print=True).decode("utf-8")) #!!! SOAP DECODING ?
+	print(etree.tostring(root,pretty_print=True).decode("utf-8")) #!!! SOAP DECODING ?
 
-def getGetNeighborhoods(): #!!!SIKINTI LXML
+def getGetNeighborhoods(): 
 	# 22339 gümüşhane merkez
 	districtId = 22339 
 	client = cityDriver()
 	full_result = client.service.GetNeighborhoods(districtId)
 	full_result_ordered = zeep.helpers.serialize_object(full_result, target_cls= collections.OrderedDict)
-	print(">>> result: ", full_result['result']['status'])
+	#print(">>> result: ", full_result['result']['status'])
 	neighborhoodsList = full_result_ordered['neighborhoods']['neighborhood']
 	for listElement in neighborhoodsList:
 		rawElement = listElement['_raw_elements']
 		for dequeElement in rawElement:
 			root = dequeElement.getroottree() #lxml i tuttuk bunu python data type nasıl kolay bit sekilde geciririz
-			print(etree.tostring(root,pretty_print=True).decode("utf-8"))
-			pass
-		#print(type(rawElement))
-		pass
-	print(full_result)
-	pass
+	print(etree.tostring(root,pretty_print=True).decode("utf-8"))
 
 def categoryDriver():	
 	settings = Settings(strict=False, xml_huge_tree=True)
@@ -209,63 +172,120 @@ def productDriver():
 	return client
 	pass
 
-def getGetProductList():
-	pagingData = {'currentPage' : 0 , 'pageSize' : 100}
+def getGetProductList(): #YENİ LXML COZUMU CALISIYOR
+	pagingData = {'currentPage' : 2 , 'pageSize' : 3}
 	client = productDriver()
 	full_result = client.service.GetProductList(auth,pagingData)
 	full_result_ordered = zeep.helpers.serialize_object(full_result, target_cls= collections.OrderedDict)
-	print(">>> result: ", full_result['result']['status'])
+	productList = full_result_ordered['products']['product']
+	for productElement in productList:
+		rawElements = productElement['_raw_elements']
+		myDeque = rawElements
+		root = myDeque.pop().getroottree()
+		print(etree.tostring(root,pretty_print=True).decode("utf-8"))
+
+def getGetProductByProductId(): 
+	productID = 301302394
+	productSellerCode = '6C0129607L'
+	client = productDriver()
+	full_result = client.service.GetProductByProductId(auth,productID)
+	full_result_ordered = zeep.helpers.serialize_object(full_result, target_cls= collections.OrderedDict)
+	#print(full_result)
+	myDeque =  full_result_ordered['product']['_raw_elements']
+	root = myDeque.pop().getroottree()
+	print(etree.tostring(root,pretty_print=True).decode("utf-8"))
+
+def getGetProductBySellerCode():
+	productSellerCode = '6C0129607L'
+	client = productDriver()
+	full_result = client.service.GetProductBySellerCode(auth,productSellerCode)
+	full_result_ordered = zeep.helpers.serialize_object(full_result, target_cls= collections.OrderedDict)
+	#print(full_result)
+	myDeque = full_result_ordered['product']['_raw_elements']
+	root = myDeque.pop().getroottree()
+	print(etree.tostring(root,pretty_print=True).decode("utf-8"))
+
+def getSaveProduct(): #KAYITLI URUN GOSTERIYORSA GUNCELLENIR YOKSA EKLENIR (UPSERT) #BU BIRAZ RISKLI ONCE ARAMAYI DENE
+	client = productDriver()
+	"""
+	However instead of creating an object from a type defined in the XSD you can also pass in a dictionary.
+	Zeep will automatically convert this dict to the required object (and nested child objects) during the call.
+	client = Client('http://my-enterprise-endpoint.com')
+	client.service.submit_order(user_id=1, order={
+    'number': '1234',
+    'price': 99,
+	}) gibi aslında bunu basından beri yapıyordum bkz pagingdata
+	"""
+
+	#SaveProduct(auth: ns0:Authentication, product: ns0:ProductRequest) -> result: ns0:ResultInfo, product: ns0:ProductBasic
+	productSellerCode = 'DENEMEU1296'
+	productItem = dict()
+	productItem.append(prod)
+
+	#full_result = client.service.SaveProduct(auth,product)
+
+
+
+def getSearchProducts():
+	client = productDriver()
+	pagingData = {'currentPage' : 0 , 'pageSize' : 1} #PAGING DATA BILDIGIMIZDEN FARKLI OLABILIR 
+	#client = productDriver()
+	#SIRANIN ONEMLI OLMADIGI SENERYU DENE
+	productSearch = {
+		'name' : 'Polo Hava Filtre Kutusu' ,
+		'approvalStatus' : 1,
+	}
+	saleDate = {
+		'startDate' : '26/11/2018' ,'endDate' : '01/01/2050'
+	}
+	productSearch['saleDate'] = saleDate #CALISIYAH
+	print(productSearch)
+	full_result = client.service.SearchProducts(auth,pagingData,productSearch);
 	print(full_result)
+	#SearchProducts(auth: ns0:Authentication, pagingData: ns0:RequestPagingData, productSearch: ns0:ProductSearch)
+	# -> result: ns0:ResultInfo, products: ns0:ProductBasicList, pagingData: ns0:PagingData
 
-###!!! EXCEPTİONLARI OGREN VE NETWORK EXEPCTİONLARINI AYALA
-###!!! NESNESLER BU YONTEMLE ERISMENIN ZARARLARI NE OLABLIR
-###!!! RAW ELEMENTSI ZEEP ILE HALLEDEBİLİR MIYIM 
 
-#Ürün Listeleme (GetProductList) detaylı urun bilgilerini alabilmek icin bunu calıstır
+
+###!!! ORNEK URUN XML'I OLUSTUR 
+###!!! APININ SAGLADIGI URUN ARAMA SISTEMI KARMASIGA BENZIYOR
+###!!! getGetProductByProductId()e göre lxml root bulmayı ayarla
+###!!! PAGING'I HATALI YAPIYORUM CURRENT PAGE I BIR SEKILDE ARTTIRIP METHODU YENIDEN CALISTIR, YADA ZEEPI ARASTIR BASKA YOLU VARMI
+		#>BAZI PAGINGLERI CACHE YAPARIM BAZILARINI ISE DRIVER ILE KULLANIRIM
+###!!! LXML OBJELERINI NATIVE PYTHON A CEVIRMEYI BUL (XML'I JULLANMAK DAHA KOLAY OLACAK GIBI)
+###!!! WSDLLERE GORE DOSYALARI AYIR (BELKI)
+
+"""
+###TODO 
+	>EXCEPTİONLARI OGREN VE NETWORK EXEPCTİONLARINI AYALA
+	>BASIT BIR DEMO SITESI HAZIRLA
+	>XML GORUNTULEME SOUTU BIRBIRINDEN AYIR, BELKIDE BUNUN ICIN BIR FONKSYON YAZ
+		> XMLI VE IO'YU EKRANA BASTIRAN FONKSYON BELKI
+"""
 
 authfileName = "auth";
 lines = [line.rstrip('\n') for line in open(authfileName)] # file objesi ???
 appKey = lines[0]
 appSecret = lines[1]
 auth = { 'appKey' : appKey , 'appSecret' : appSecret}
-pagingData = {'currentPage' : 0 , 'pageSize' : 100}
- 
 
-
-#Parametre ayarla 
-#categoryDriver() #!!! DETAYLI TESTLERINI YAP simdilik hata yok BOSUNA CAGIRMA PERFOMANSA ETKISI VAR
+#categoryDriver() 
 #cityDriver()
 #GetTopLevelCatIterate() #GetTopLevelCategories
 #GetSubCategoriesIterate() 
 #GetParentCategoryIterate() 
-#GetCategoryAttributesIdIterate() #!!!SIKINTI LXML # BURADA KALDIM
+#GetCategoryAttributesIdIterate() # TEK DEQUE ELEMENTI GELIYOR ILERIDE SIKINTI OLABILIR
 #GetCategoryAttributeValueIterate()
 #GetCategoryAttributesIterate() #!!!SIKINTI LXML
 #getGetCities()
 #getGetCity()
 #getGetDistrict()
-#getGetNeighborhoods() #BUNLARI CACHE ALMANIN FAYDASI OLUR 
-getGetProductList()
-
-""" 
-requesti lxml formatına cevirme
-client1 = Client('https://api.n11.com/ws/CategoryService.wsdl')
-node = client1.create_message(client1.service,'GetTopLevelCategories',auth = auth)
-print(type(node))
-#requesti alabildik peki cevabı alabilecek miyiz
-#create_mesage lxml objesi mi donduruyor EVET 
-print(etree.tostring(node,pretty_print=True).decode("utf-8"))
-"""
-
-#result = client.service.GetCategoryAttributesId(auth,SubCategoryId)
-#raw elements i foreach ile itere edebilir miyim
-#print(result.categoryProductAttributeList.categoryProductAttribute[0])
-
-"""	 bu sekildede yapmaya calıs
-Mydeque = result.categoryProductAttributeList.categoryProductAttribute[0]
-serializedDeque = zeep.helpers.serialize_object(Mydeque, target_cls= collections.deque)
-print("deque unserialised \n" + Mydeque + "serialized deque \n"  + serializedDeque)
-"""
+#getGetNeighborhoods() 
+#getGetProductList() #YENİ LXML COZUMU CALISIYOR
+#getGetProductByProductId() #YENİ LXML COZUMU CALISIYOR #GELEN KOMPLEKS CEVAPLARI BOYLE OKU 
+#getGetProductBySellerCode()
+#getSaveProduct()
+getSearchProducts()
 
 #print(history.last_sent)
 #print(history.last_received)

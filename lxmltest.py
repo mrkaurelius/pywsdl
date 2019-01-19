@@ -6,7 +6,22 @@ import sys
 #basit ulke taslagı hazırla sonra edinilen bilgilerle xml türet
 #python literaller ilginc onlara bir bak
 #n11 soap cevaplarını kayıt edip onları etree ile okuyup oynanabilecek hale getir
+"""
+#URUN SABLONU OLUSTURMAK ICIN GEREKEN KOMPLESK TIPLER 
+	ALTMETODLAR productsun alt metodları
+		> images (N11 KENDI SITESINDE NASIL BARINDIRACAĞIM ?)
+		> stockItems (stok durumu ile ilgili bilgiler)
+		> specialProduct demis bos gececegim
 
+	> shimpment template hazır olarnları kullan, oluşturması kolaysa kendin oluştur
+	> direkt xml bekliyor galiba
+"""
+#BASIC PRODUCT TEMPLATE
+#SaveProduct(auth: ns0:Authentication, product: ns0:ProductRequest) -> result: ns0:ResultInfo, product: ns0:ProductBasic
+root = etree.Element("")
+
+
+# TREE ITERATION
 """
 root = etree.Element("root")
 root.append(etree.Element("child1"))
@@ -16,10 +31,7 @@ subchild1 = etree.SubElement(child2,"subchild1")
 subsubchild = etree.SubElement(subchild1,"asdfafd")
 print(etree.tostring(root,pretty_print=True).decode("utf-8"))
 """
-
-#avrupa birliği ulkereli baskentleri birde subelement icin birsey uydur 
-root = etree.Element("eucountry")
-
+"""
 country = etree.SubElement(root,"fullname")
 capital = etree.SubElement(root,"capital")
 regions = etree.SubElement(root,"regions")
@@ -48,9 +60,4 @@ orderedRegion['regions'] = region1 # orederdic degilde orderdicteki listeye ekle
 orderedRegion.append(region2)
 orderedEu['capital'] = cap
 orderedEu['fullname'] = fn
-
-print(orderedEu)
-print(orderedRegion)
-#xmlin sonuna tail ekleyebiliyoruz neden boyle birsey lazm bilmiyorum
-
-# TREE ITERATION
+"""
